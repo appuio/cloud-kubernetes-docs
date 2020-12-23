@@ -1,0 +1,6 @@
+name: rancher
+title: APPUiO Managed Rancher
+version: master # --> versionless
+start_page: ROOT:index.adoc
+nav:
+- modules/ROOT/partials/nav.adoc
