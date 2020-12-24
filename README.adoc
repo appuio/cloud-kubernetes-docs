@@ -1,4 +1,4 @@
-= APPUiO Managed Rancher documentation
+= APPUiO Managed Rancher Documentation
 
 This repository contains all the content of the APPUiO Managed Rancher documentation hosted at https://kb.vshn.ch/rancher/.
 
