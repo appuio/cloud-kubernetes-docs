@@ -1,0 +1,85 @@
+= EKS Node Maintenance
+
+== Prerequisites
+* Local Docker installation and the docker images from https://github.com/projectsyn/boatswain (`projectsyn/boatswain:latest`)
+* Kubeconfig and AWS credentials for the cluster to upgrade, see the customer's 'EKS clusters' wiki page for links
+
+
+== Preparation
+* Login to the AWS console for the cluster you want to maintain / upgrade (in case you need to manually intervene)
+* Check out the customer's `eks-terraform` repository
+* Fill in the appropriate values in the following template to configure credentials for AWS and Kubernetes and save it to a file
+[source,bash]
+----
+AWS_ASSUME_ROLE_ARN=arn:aws:iam::123456:role/OrganizationAccountAccessRole  # <1>
+AWS_REGION=eu-central-1  # <2>
+AWS_ACCESS_KEY_ID=AKASDF...  # <3>
+AWS_SECRET_ACCESS_KEY=helpimtrappedinatokengenerator  # <4>
+# This is inside the container so it does not need to be adapted
+KUBECONFIG=/app/kubeconfig
+----
+<1> ARN of Role to assume for the cluster you are maintaining
+<2> Region of the cluster
+<3> Access key for the AWS account from which you can assume the role above
+<4> Secret key for the AWS account
+
+[WARNING]
+====
+.Docker caveat
+
+Make sure the values are *NOT* surrounded by `'` or `"` , as docker will set the value to EVERYTHING after the `=` sign.
+====
+
+* Export the following variables, this allows you to copy-paste the docker commands below
+[source,bash]
+export ENVFILE=/absolute/path/to/env/file
+export HOST_KUBECONFIG=/absolute/path/to/kubeconfig/for/cluster/on/host
+alias boatswain='docker run --rm --env-file ${ENVFILE} -v ${HOST_KUBECONFIG}:/app/kubeconfig docker.io/projectsyn/boatswain:latest'
+
+
+== Node maintenance
+
+. Run `docker pull projectsyn/boatswain:latest` to ensure you are using the latest version of Boatswain.
+
+. Go to the customer's `eks-terraform` repository and check whether the scheduled pipeline run "Launch template updates" ran successfully. If not, run it manually.
+
+. After the pipeline run succeeds, run
++
+[source,bash]
+boatswain list-upgradable
++
+to list nodes which are upgradable, that is nodes which are running off an old launch template version. If this command lists no instances, you're done!
+
+. Run
++
+[source,bash]
+boatswain upgrade
++
+to upgrade all upgradable nodes. See <<Resuming an upgrade>> if boatswain aborts at this stage.
+
+** Note that the following two options can't be combined!
+** You can force an upgrade for all nodes with
++
+[source,bash]
+boatswain upgrade --force-replace
+
+** You can force replace a specific nodes with
++
+[source,bash]
+boatswain upgrade --single-node=ip-10-200-XXX-YYY.REGION.compute.internal
+
+
+=== Helper Makefile
+
+See https://git.vshn.net/vshn/eks-maintenance for a helper `Makefile` which streamlines the env var handling a bit.
+
+
+== Troubleshooting
+
+=== Resuming an upgrade
+
+If for some reason boatswain aborted during the "upgrade" step (and the old instance was already detached from the ASG), *you* get to do its job:
+
+. Wait for the new instance to appear in Rancher and become `Ready`
+. Drain the old instance (should already be cordoned) via Rancher
+. Terminate the old instance from EC2

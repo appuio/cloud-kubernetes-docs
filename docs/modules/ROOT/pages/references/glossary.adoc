@@ -1,0 +1,4 @@
+= Glossary
+
+Boatswain:: Tool developed by VSHN to perform node maintenance of an EKS cluster (by replacing them). See https://github.com/projectsyn/boatswain
+EKS:: Amazon's "managed" Kubernetes offering. See https://aws.amazon.com/eks/
