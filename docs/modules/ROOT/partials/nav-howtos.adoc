@@ -1,2 +1,4 @@
 * AWS EKS
 ** xref:rancher:ROOT:how-tos/eks_node_maintenance.adoc[Node Maintenance]
+* Google GKE
+** xref:rancher:ROOT:how-tos/gke_node_maintenance.adoc[Node Maintenance]

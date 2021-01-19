@@ -1,0 +1,36 @@
+= GKE Node Maintenance
+
+== Prerequisites
+
+* Access to the customer `gke-terraform` repository
+
+== Preparation
+
+* Login to the GKE console for the cluster you want to maintain / upgrade (in case you need to manually intervene)
+* Check out the customer's `gke-terraform` repository
+
+== Node maintenance
+
+GKE allows you to auto-upgrade your nodes. See https://cloud.google.com/kubernetes-engine/docs/concepts/cluster-upgrades[Cluster upgrades] and https://cloud.google.com/kubernetes-engine/docs/how-to/node-auto-upgrades[Auto-upgrading nodes] for more details.
+Auto-Upgrade is enabled for the nodes by default.
+
+. Change Kubernetes Version
++
+No release channel is selected and therefore the version is set static. Change `cluster_version` in your `gke-terraform` repository.
+
+. Verify Auto-Upgrade Settings
++
+The node auto-upgrade is controlled by the following variables:
++
+* `maintenance_start_time`: Time window specified for recurring maintenance operations in RFC3339 format (default: `05:00`)
+* `maintenance_end_time`: Time window specified for recurring maintenance operations in RFC3339 format (default: ``)
+* `maintenance_recurrence`: Time window specified for recurring maintenance operations in RFC3339 format (default: ``)
+* `worker_max_surge`: The number of additional worker nodes that can be added to the node pool during an upgrade
+* `worker_max_unavailable`: The number of worker nodes that can be simultaneously unavailable during an upgrade
+* `builder_max_surge` The number of additional builder nodes that can be added to the node pool during an upgrade
+* `builder_max_unavailable`: The number of builder nodes that can be simultaneously unavailable during an upgrade
++
+This results in a daily 4h (default minimum value) maintenance window.
+
+. Apply your changes and run pipeline
+
