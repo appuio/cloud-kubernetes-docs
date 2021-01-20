@@ -22,9 +22,9 @@ No release channel is selected and therefore the version is set statically. Chan
 +
 The node auto-upgrade is controlled by the following variables (derived from https://registry.terraform.io/modules/terraform-google-modules/kubernetes-engine/google/latest/submodules/beta-private-cluster[Terraform Kubernetes Engine Module])
 +
-* `maintenance_start_time`: Time window specified for recurring maintenance operations in RFC3339 format (default: `05:00`)
+* `maintenance_start_time`: Time window specified for daily or recurring maintenance operations in RFC3339 format (default: `05:00`)
 * `maintenance_end_time`: Time window specified for recurring maintenance operations in RFC3339 format (default: ``)
-* `maintenance_recurrence`: Time window specified for recurring maintenance operations in RFC3339 format (default: ``)
+* `maintenance_recurrence`: Frequency of the recurring maintenance window in RFC5545 format. (default: ``)
 * `worker_max_surge`: The number of additional worker nodes that can be added to the node pool during an upgrade
 * `worker_max_unavailable`: The number of worker nodes that can be simultaneously unavailable during an upgrade
 * `builder_max_surge` The number of additional builder nodes that can be added to the node pool during an upgrade
