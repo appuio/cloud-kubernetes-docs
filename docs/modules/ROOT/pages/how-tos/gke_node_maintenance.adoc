@@ -10,13 +10,16 @@
 
 == Node maintenance
 
-GKE allows you to auto-upgrade your kubernetes control plane and nodes. See https://cloud.google.com/kubernetes-engine/docs/concepts/cluster-upgrades[Cluster upgrades] and https://cloud.google.com/kubernetes-engine/docs/how-to/node-auto-upgrades[Auto-upgrading nodes] for more details.
+GKE allows you to auto-upgrade your kubernetes control plane and nodes.
+See https://cloud.google.com/kubernetes-engine/docs/concepts/cluster-upgrades[Cluster upgrades] and https://cloud.google.com/kubernetes-engine/docs/how-to/node-auto-upgrades[Auto-upgrading nodes] for more details.
 Auto-Upgrade is enabled for the nodes by default.
-GKE allows you to specify maintenance windows and exclustions to control when an auto-upgrade is executed. See https://cloud.google.com/kubernetes-engine/docs/how-to/maintenance-windows-and-exclusions[Configuring maintenance windows and exclusions]
+GKE allows you to specify maintenance windows and exclustions to control when an auto-upgrade is executed.
+See https://cloud.google.com/kubernetes-engine/docs/how-to/maintenance-windows-and-exclusions[Configuring maintenance windows and exclusions]
 
 . Change Kubernetes Version
 +
-No release channel is selected and therefore the version is set statically. Change the parameter `cluster_version` in your `gke-terraform` repository to change the Kubernetes version.
+No release channel is selected and therefore the version is set statically.
+Change the parameter `cluster_version` in your `gke-terraform` repository to change the Kubernetes version.
 
 . Verify Auto-Upgrade Settings
 +
@@ -32,7 +35,8 @@ The node auto-upgrade is controlled by the following variables (derived from htt
 +
 Google GKE allows for a https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/projects.locations.clusters#Cluster.DailyMaintenanceWindow[simple daily] or a https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/projects.locations.clusters#recurringtimewindow[recurring maintenance] window.
 +
-When `maintenance_recurrence` is not set, this automaticly results in a daily maintenance window. See terraform https://github.com/terraform-google-modules/terraform-google-kubernetes-engine/blob/v12.3.0/modules/beta-private-cluster/main.tf#L175[module's sourcecode] for details on this distinction.
+When `maintenance_recurrence` is not set, this automaticly results in a daily maintenance window.
+See terraform https://github.com/terraform-google-modules/terraform-google-kubernetes-engine/blob/v12.3.0/modules/beta-private-cluster/main.tf#L175[module's sourcecode] for details on this distinction.
 Only `maintenance_start_time` is required for the daily maintenance window to use.
 A minimum duration of 4h is requrired, see https://cloud.google.com/kubernetes-engine/docs/how-to/maintenance-windows-and-exclusions[Configuring maintenance windows and exclusions]
 The duration in the case of the daily mainenance window cannot be set with Terraform and therefore defaults to 4h.
@@ -40,6 +44,7 @@ The duration in the case of the daily mainenance window cannot be set with Terra
 By setting `maintenance_start_time`, `maintenance_end_time` and `maintenance_recurrence` you define a recurring maintenance window.
 Example for a recurring maintenance window:
 +
+[source,yaml]
 ----
 # a 9-5 UTC-4 window every weekday
 maintenance_start_time time: "2019-01-01T09:00:00-0400
@@ -56,4 +61,3 @@ The default values results in a daily 4h maintenance window.
 . Apply your changes and run pipeline
 +
 The controlplane and the node pools are then upgraded in the next maintenance windows.
-
