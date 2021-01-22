@@ -1,63 +1,51 @@
 = GKE Node Maintenance
 
-== Prerequisites
-
-* Access to the customer `gke-terraform` repository
-
-== Preparation
-
-* Check out the customer's `gke-terraform` repository
-
 == Node maintenance
 
-GKE allows you to auto-upgrade your kubernetes control plane and nodes.
+GKE allows you to auto-upgrade your Kubernetes control-plane and nodes.
 See https://cloud.google.com/kubernetes-engine/docs/concepts/cluster-upgrades[Cluster upgrades] and https://cloud.google.com/kubernetes-engine/docs/how-to/node-auto-upgrades[Auto-upgrading nodes] for more details.
 Auto-Upgrade is enabled for the nodes by default.
-GKE allows you to specify maintenance windows and exclustions to control when an auto-upgrade is executed.
+GKE allows you to specify maintenance windows and exclusions to control when an auto-upgrade is executed.
 See https://cloud.google.com/kubernetes-engine/docs/how-to/maintenance-windows-and-exclusions[Configuring maintenance windows and exclusions]
 
-. Change Kubernetes Version
-+
+=== Change Kubernetes Version
+
 No release channel is selected and therefore the version is set statically.
 Change the parameter `cluster_version` in your `gke-terraform` repository to change the Kubernetes version.
 
-. Verify Auto-Upgrade Settings
-+
+=== Verify Auto-Upgrade Settings
+
 The node auto-upgrade is controlled by the following variables (derived from https://registry.terraform.io/modules/terraform-google-modules/kubernetes-engine/google/latest/submodules/beta-private-cluster[Terraform Kubernetes Engine Module])
-+
+
 * `maintenance_start_time`: Time window specified for daily or recurring maintenance operations in RFC3339 format (default: `05:00`)
-* `maintenance_end_time`: Time window specified for recurring maintenance operations in RFC3339 format (default: ``)
-* `maintenance_recurrence`: Frequency of the recurring maintenance window in RFC5545 format. (default: ``)
+* `maintenance_end_time`: Time window specified for recurring maintenance operations in RFC3339 format (default: `""`)
+* `maintenance_recurrence`: Frequency of the recurring maintenance window in RFC5545 format. (default: `""`)
 * `worker_max_surge`: The number of additional worker nodes that can be added to the node pool during an upgrade
 * `worker_max_unavailable`: The number of worker nodes that can be simultaneously unavailable during an upgrade
 * `builder_max_surge` The number of additional builder nodes that can be added to the node pool during an upgrade
 * `builder_max_unavailable`: The number of builder nodes that can be simultaneously unavailable during an upgrade
-+
+
 Google GKE allows for a https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/projects.locations.clusters#Cluster.DailyMaintenanceWindow[simple daily] or a https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/projects.locations.clusters#recurringtimewindow[recurring maintenance] window.
-+
-When `maintenance_recurrence` is not set, this automaticly results in a daily maintenance window.
-See terraform https://github.com/terraform-google-modules/terraform-google-kubernetes-engine/blob/v12.3.0/modules/beta-private-cluster/main.tf#L175[module's sourcecode] for details on this distinction.
+
+When `maintenance_recurrence` is not set, this automatically results in a daily maintenance window.
+See terraform https://github.com/terraform-google-modules/terraform-google-kubernetes-engine/blob/v12.3.0/modules/beta-private-cluster/main.tf#L175[module's source code] for details on this distinction.
 Only `maintenance_start_time` is required for the daily maintenance window to use.
-A minimum duration of 4h is requrired, see https://cloud.google.com/kubernetes-engine/docs/how-to/maintenance-windows-and-exclusions[Configuring maintenance windows and exclusions]
-The duration in the case of the daily mainenance window cannot be set with Terraform and therefore defaults to 4h.
-+
+A minimum duration of 4h is required, see https://cloud.google.com/kubernetes-engine/docs/how-to/maintenance-windows-and-exclusions[Configuring maintenance windows and exclusions].
+The duration in the case of the daily maintenance window cannot be set with Terraform and therefore defaults to 4h.
+
 By setting `maintenance_start_time`, `maintenance_end_time` and `maintenance_recurrence` you define a recurring maintenance window.
 Example for a recurring maintenance window:
-+
-[source,yaml]
+
+[source]
 ----
 # a 9-5 UTC-4 window every weekday
 maintenance_start_time time: "2019-01-01T09:00:00-0400
 maintenance_end_time: "2019-01-01T17:00:00-0400"
 maintenance_recurrence: "FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR"
 ----
-+
+
 The format of `maintenance_start_time` and `maintenance_end_time` should be https://www.ietf.org/rfc/rfc3339.txt[RFC3339]
 The format of `maintenance_recurrence` should be https://tools.ietf.org/html/rfc5545#section-3.8.5.3[RFC5545]
 See the https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/projects.locations.clusters#recurringtimewindow[Google GKE API Documentatiom] for more details and examples
-+
-The default values results in a daily 4h maintenance window.
 
-. Apply your changes and run pipeline
-+
-The controlplane and the node pools are then upgraded in the next maintenance windows.
+The default values results in a daily 4h maintenance window.
