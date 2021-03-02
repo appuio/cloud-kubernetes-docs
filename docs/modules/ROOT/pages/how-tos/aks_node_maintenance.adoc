@@ -1,0 +1,54 @@
+= AKS Node Maintenance
+
+== Cluster Upgrade and Node Maintenance
+
+AKS allows you to upgrade your Kubernetes control-plane and nodes.
+See https://docs.microsoft.com/en-us/azure/aks/upgrade-cluster[Upgrade an Azure Kubernetes Service (AKS) cluster]
+Node Images can also be upgraded. AKS provides one new image per week with the latest updates,
+See https://docs.microsoft.com/en-us/azure/aks/node-image-upgrade[Azure Kubernetes Service (AKS) node image upgrade]
+Also Check https://github.com/Azure/AKS/releases[AKS Release Notes] for details on a Release.
+
+
+=== Kubernetes Control Plane upgrade
+
+Change the parameter `cluster_version` in your `aks-terraform` repository to change the Kubernetes version.
+When applied, AKS starts with the upgrade process as described https://docs.microsoft.com/en-us/azure/aks/upgrade-cluster#upgrade-an-aks-cluster[ḧere]
+
+
+=== Node Image Upgrade
+
+Check latest node image version available for your node pool with the following command:
+
+----
+az aks nodepool get-upgrades \
+    --nodepool-name mynodepool \
+    --cluster-name myAKSCluster \
+    --resource-group myResourceGroup
+----
+
+Then compare this with your current node image version by running:
+
+----
+az aks nodepool show \
+    --resource-group myResourceGroup \
+    --cluster-name myAKSCluster \
+    --name mynodepool \
+    --query nodeImageVersion
+----
+
+To upgrade the node image, use the following command:
+
+----
+az aks nodepool upgrade \
+    --resource-group myResourceGroup \
+    --cluster-name myAKSCluster \
+    --name mynodepool \
+    --node-image-only
+----
+
+During the upgrade, check the status of the node images with the following `kubectl` command to get the labels and filter out the current node image information:
+
+----
+kubectl get nodes -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.metadata.labels.kubernetes\.azure\.com\/node-image-version}{"\n"}{end}'
+----
+
