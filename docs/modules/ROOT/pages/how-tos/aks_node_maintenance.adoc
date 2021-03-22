@@ -1,27 +1,28 @@
-= AKS Node Maintenance
-
-== Cluster Upgrade and Node Maintenance
+= AKS Node and Control-Plane Maintenance
 
 AKS allows you to upgrade your Kubernetes control-plane and nodes.
-See https://docs.microsoft.com/en-us/azure/aks/upgrade-cluster[Upgrade an Azure Kubernetes Service (AKS) cluster]
-Node Images can also be upgraded. AKS provides one new image per week with the latest updates,
-See https://docs.microsoft.com/en-us/azure/aks/node-image-upgrade[Azure Kubernetes Service (AKS) node image upgrade]
-Also Check https://github.com/Azure/AKS/releases[AKS Release Notes] for details on a Release.
+See https://docs.microsoft.com/en-us/azure/aks/upgrade-cluster[Upgrade an Azure Kubernetes Service (AKS) cluster].
 
+Node images can also be upgraded.
+AKS provides one new image per week with the latest updates,
+see https://docs.microsoft.com/en-us/azure/aks/node-image-upgrade[Azure Kubernetes Service (AKS) node image upgrade].
 
-=== Kubernetes Control Plane upgrade
+Also check https://github.com/Azure/AKS/releases[AKS Release Notes] for details on a release.
+
+== Kubernetes Control Plane upgrade
 
 Change the parameter `cluster_version` in your `aks-terraform` repository to change the Kubernetes version.
-When applied, AKS starts with the upgrade process as described https://docs.microsoft.com/en-us/azure/aks/upgrade-cluster#upgrade-an-aks-cluster[ḧere]
+When applied, AKS starts with the upgrade process as described https://docs.microsoft.com/en-us/azure/aks/upgrade-cluster#upgrade-an-aks-cluster[here]
 
 The https://docs.microsoft.com/en-us/azure/aks/upgrade-cluster#set-auto-upgrade-channel[upgrade channel] for the Kubernetes Cluster is set to `patch`.
-Therefore the variable `cluster_version` might not match the current state of your cluster. Verify the cluster version and upgrade `cluster_version` befor applying.
+Therefore the variable `cluster_version` might not match the current state of your cluster.
+Verify the cluster version and upgrade `cluster_version` before applying.
 
-
-=== Node Image Upgrade
+== Node Image Upgrade
 
 Check latest node image version available for your node pool with the following command:
 
+[source,shell]
 ----
 az aks nodepool get-upgrades \
     --nodepool-name mynodepool \
@@ -31,6 +32,7 @@ az aks nodepool get-upgrades \
 
 Then compare this with your current node image version by running:
 
+[source,shell]
 ----
 az aks nodepool show \
     --resource-group myResourceGroup \
@@ -41,6 +43,7 @@ az aks nodepool show \
 
 To upgrade the node image, use the following command:
 
+[source,shell]
 ----
 az aks nodepool upgrade \
     --resource-group myResourceGroup \
@@ -51,71 +54,17 @@ az aks nodepool upgrade \
 
 During the upgrade, check the status of the node images with the following `kubectl` command to get the labels and filter out the current node image information:
 
+[source,shell]
 ----
 kubectl get nodes -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.metadata.labels.kubernetes\.azure\.com\/node-image-version}{"\n"}{end}'
 ----
 
+== Script for automated update
 
-=== Script for automated update
+The following script automates the procedure described above.
+It only calls the upgrade command when there is a mismatch between the latest and the current node image version.
 
-The following script automates the procedure described above. It only calls the upgrade command when there is a mismatch between the laster and the current node image version.
-
+[source,bash]
 ----
-#!/bin/bash
-
-usage () {
-    cat <<HELP_USAGE
-    This script requires the following arguments:
-    $0 <resource-group> <cluster-name> <nodepool-name> [apply]
-    Use 'apply' to execute upgrade.
-HELP_USAGE
-}
-
-if [  $# -le 2 ] 
-	then 
-		usage
-		exit 1
-	fi 
-
-if ! command -v jq &> /dev/null
-then
-    echo "Cannot run $0. This scripts requires 'jq'. Please install 'jq' first!"
-    exit
-fi
-
-if ! command -v az &> /dev/null
-then
-    echo "Cannot run $0. This scripts requires 'az'. Please install 'az' first!"
-    exit
-fi
-
-RESOURCE_GROUP=$1
-CLUSTER_NAME=$2
-NODE_POOL=$3
-APPLY=$4
-
-echo "Checking nodepool image upgrade"
-echo "  Resource group: '$RESOURCE_GROUP'";
-echo "  Cluster name: '$CLUSTER_NAME'";
-echo "  Nodepool: '$NODE_POOL'";
-
-
-LATEST_VERSION=$(az aks nodepool get-upgrades --resource-group $RESOURCE_GROUP --cluster-name $CLUSTER_NAME --nodepool-name $NODE_POOL --only-show-errors | jq -r ".latestNodeImageVersion")
-CURRENT_VERSION=$(az aks nodepool show --resource-group $RESOURCE_GROUP --cluster-name $CLUSTER_NAME --name $NODE_POOL --query nodeImageVersion --only-show-errors | sed 's/"//g')
-
-echo ""
-echo "Latest nodepool image version: '$LATEST_VERSION'"
-echo "Curent nodepool image version: '$CURRENT_VERSION'"
-echo ""
-
-if [ "$LATEST_VERSION" != "$CURRENT_VERSION" ]; then
-    echo "-> Nodepool image upgrade required, upgrading.. please wait.."
-
-    if [ "$APPLY" == "apply" ]; then
-        az aks nodepool upgrade --resource-group $RESOURCE_GROUP --cluster-name $CLUSTER_NAME --name $NODE_POOL --node-image-only
-        echo "-> Nodepool image upgrade done"
-    fi
-else
-    echo "-> Nodepool image upgrade not required"
-fi
+include::example$aks_maintenance.sh[]
 ----
