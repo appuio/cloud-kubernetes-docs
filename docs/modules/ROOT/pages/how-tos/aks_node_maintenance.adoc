@@ -14,6 +14,9 @@ Also Check https://github.com/Azure/AKS/releases[AKS Release Notes] for details 
 Change the parameter `cluster_version` in your `aks-terraform` repository to change the Kubernetes version.
 When applied, AKS starts with the upgrade process as described https://docs.microsoft.com/en-us/azure/aks/upgrade-cluster#upgrade-an-aks-cluster[ḧere]
 
+The https://docs.microsoft.com/en-us/azure/aks/upgrade-cluster#set-auto-upgrade-channel[upgrade channel] for the Kubernetes Cluster is set to `patch`.
+Therefore the variable `cluster_version` might not match the current state of your cluster. Verify the cluster version and upgrade `cluster_version` befor applying.
+
 
 === Node Image Upgrade
 
@@ -55,6 +58,7 @@ kubectl get nodes -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.metadata
 
 === Script for automated update
 
+The following script automates the procedure described above. It only calls the upgrade command when there is a mismatch between the laster and the current node image version.
 
 ----
 #!/bin/bash
