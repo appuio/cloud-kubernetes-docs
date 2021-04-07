@@ -4,3 +4,4 @@ https://azure.microsoft.com/de-de/services/kubernetes-service/[AKS]:: Azure Kube
 https://github.com/projectsyn/boatswain[Boatswain]:: Tool developed by VSHN to perform node maintenance of an EKS cluster (by replacing them) 
 https://aws.amazon.com/eks/[EKS]:: Amazon Elastic Kubernetes Service
 https://cloud.google.com/kubernetes-engine[GKE]:: Google Kubernetes Engine
+https://k3s.io/:: K3S Lightweight Kubernetes

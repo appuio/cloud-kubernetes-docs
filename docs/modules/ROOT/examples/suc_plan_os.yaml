@@ -1,0 +1,17 @@
+---
+parameters:
+  system_upgrade_controller:
+    plans:
+      - name: system-upgrade
+        concurrency: 1
+        image: docker.io/projectsyn/suc-ubuntu-focal
+        command: /scripts/run.sh
+        hour: 22 
+        day: 2
+        label_selectors:
+          - {key: plan.upgrade.cattle.io/focal, operator: Exists}
+        tolerations:
+          - key: node-role.kubernetes.io/controlplane
+            operator: Exists
+          - key: node-role.kubernetes.io/etcd
+            operator: Exists
