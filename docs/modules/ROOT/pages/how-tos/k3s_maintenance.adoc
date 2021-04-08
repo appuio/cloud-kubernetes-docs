@@ -17,7 +17,8 @@ Check the https://github.com/k3s-io/k3s/releases[K3s Release] page and update th
 For example, to upgrade to "v1.20.4+k3s1", set `version: v1.20.4+k3s1`.
 Don't forget to recompile the cluster catalog to roll out the updated Plan object on the cluster.
 
-This will immediatly trigger an upgrade of K3s. The container image `docker.io/rancher/k3s-upgrade` will replace the existing K3s binary and restart K3s.
+Once the plan is updated on the cluster, it will immediately trigger an upgrade of K3s.
+The container image `docker.io/rancher/k3s-upgrade` will replace the existing K3s binary and restart K3s.
 
 == Node Maintenance
 
