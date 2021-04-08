@@ -6,7 +6,7 @@ The Kubernetes version is bound to the K3s version, so by updating K3s you also 
 The https://github.com/rancher/system-upgrade-controller[System Upgrade Controller] from Rancher is used to upgrade the K3s version.
 The System Upgrade Controller is installed using a https://github.com/projectsyn/component-system-upgrade-controller[Project Syn component].
 
-In order to manage the K3s version the following System Upgrade Controller plan is used (the plan is also installed using the Project Syn component):
+In order to manage the K3s version the following System Upgrade Controller plan is deployed by the Project Syn component:
 
 [source,yaml]
 ----
