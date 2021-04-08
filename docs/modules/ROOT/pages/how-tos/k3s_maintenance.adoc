@@ -34,6 +34,10 @@ include::example$suc_plan_os.yaml[]
 
 This plan uses a `channel` instead of the `version` argument.
 The Project Syn component configures the channel to use https://github.com/projectsyn/floodgate[Floodgate] to schedule a weekly node maintenance window: `https://floodgate.syn.vshn.net/window/<day>/<hour>`
-Floodate returns the version of the upgrade container to be used. The time of upgrade is controller with the `day` and `hour` variable. An update to the latest OS package version is only done after this time.
+Floodgate returns the version of the upgrade container to be used.
+The upgrade window is controlled with the `day` and `hour` variables.
+An update to the latest OS package versions is done during the upgrade window.
+Note that there's no way to specify the end of the upgrade window, only the start is controlled by the `day` and `hour` variables.
+See the https://github.com/projectsyn/component-system-upgrade-controller/blob/master/docs/modules/ROOT/pages/references/parameters.adoc#plans[System Upgrade Controller component documentation] for a more detailed description of the `day` and `hour` variables.
 
 In order to upgrade K3s nodes using the System Upgrade Controller, they have to be labeled with `plan.upgrade.cattle.io/focal`
