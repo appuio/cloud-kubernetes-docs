@@ -21,7 +21,8 @@ This will immediatly trigger an upgrade of K3s. The container image `docker.io/r
 
 We use Ubuntu as the underlaying operating system for K3s Kubernetes clusters. Node maintenance is also done using the System Upgrade Controller. 
 To upgrade the system packages the following scripts in a container image are used: https://github.com/projectsyn/system-upgrade-controller-package-upgrade
-Every week a new container image is build with the updates os packages. This container image is used in the System Upgrade Controller plan.
+Every week on Monday morning a new container image is built with the updated OS packages.
+This container image is used in the System Upgrade Controller plan.
 
 The following System Upgrade Controller plan is used (the plan is also installed using the Project Syn component):
 
