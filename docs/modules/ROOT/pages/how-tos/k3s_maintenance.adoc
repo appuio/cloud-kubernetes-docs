@@ -27,8 +27,9 @@ Node maintenance is also done using the System Upgrade Controller.
 To upgrade the system packages the following scripts in a container image are used: https://github.com/projectsyn/system-upgrade-controller-package-upgrade
 Every week on Monday morning a new container image is built with the updated OS packages.
 This container image is used in the System Upgrade Controller plan.
+Currently there is an upgrade image for Ubuntu Bionic (18.04) and one for Ubuntu Focal (20.04).
 
-The following System Upgrade Controller plan is used (the plan is also installed using the Project Syn component):
+The following System Upgrade Controller plan is used (the plan is also deployed by the Project Syn component):
 
 [source,yaml]
 ----
@@ -42,5 +43,7 @@ The upgrade window is controlled with the `day` and `hour` variables.
 An update to the latest OS package versions is done during the upgrade window.
 Note that there's no way to specify the end of the upgrade window, only the start is controlled by the `day` and `hour` variables.
 See the https://github.com/projectsyn/component-system-upgrade-controller/blob/master/docs/modules/ROOT/pages/references/parameters.adoc#plans[System Upgrade Controller component documentation] for a more detailed description of the `day` and `hour` variables.
+Make sure to set the correct upgrade image using the `image` variable: `docker.io/projectsyn/suc-ubuntu-focal` and `docker.io/projectsyn/suc-ubuntu-bionic` are available.
+
 
 In order to upgrade K3s nodes using the System Upgrade Controller, they have to be labeled with `plan.upgrade.cattle.io/focal`
