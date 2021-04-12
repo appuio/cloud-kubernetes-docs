@@ -1,0 +1,49 @@
+= K3s Maintenance
+
+== Kubernetes Maintenance
+
+The Kubernetes version is bound to the K3s version, so by updating K3s you also update the Kubernetes version.
+The https://github.com/rancher/system-upgrade-controller[System Upgrade Controller] from Rancher is used to upgrade the K3s version.
+The System Upgrade Controller is installed using a https://github.com/projectsyn/component-system-upgrade-controller[Project Syn component].
+
+In order to manage the K3s version the following System Upgrade Controller plan is deployed by the Project Syn component:
+
+[source,yaml]
+----
+include::example$suc_plan_k3s.yaml[]
+----
+
+Check the https://github.com/k3s-io/k3s/releases[K3s Release] page and update the value of `version` with the version you want to upgrade to in the Project Syn hierarchy.
+For example, to upgrade to "v1.20.4+k3s1", set `version: v1.20.4+k3s1`.
+Don't forget to recompile the cluster catalog to roll out the updated Plan object on the cluster.
+
+Once the plan is updated on the cluster, it will immediately trigger an upgrade of K3s.
+The container image `docker.io/rancher/k3s-upgrade` will replace the existing K3s binary and restart K3s.
+
+== Node Maintenance
+
+We use Ubuntu as the underlying operating system for K3s Kubernetes clusters.
+Node maintenance is also done using the System Upgrade Controller. 
+To upgrade the system packages the following scripts in a container image are used: https://github.com/projectsyn/system-upgrade-controller-package-upgrade
+Every week on Monday morning a new container image is built with the updated OS packages.
+This container image is used in the System Upgrade Controller plan.
+Currently there is an upgrade image for Ubuntu Bionic (18.04) and one for Ubuntu Focal (20.04).
+
+The following System Upgrade Controller plan is used (the plan is also deployed by the Project Syn component):
+
+[source,yaml]
+----
+include::example$suc_plan_os.yaml[]
+----
+
+This plan uses a `channel` instead of the `version` argument.
+The Project Syn component configures the channel to use https://github.com/projectsyn/floodgate[Floodgate] to schedule a weekly node maintenance window: `https://floodgate.syn.vshn.net/window/<day>/<hour>`
+Floodgate returns the version of the upgrade container to be used.
+The upgrade window is controlled with the `day` and `hour` variables.
+An update to the latest OS package versions is done during the upgrade window.
+Note that there's no way to specify the end of the upgrade window, only the start is controlled by the `day` and `hour` variables.
+See the https://github.com/projectsyn/component-system-upgrade-controller/blob/master/docs/modules/ROOT/pages/references/parameters.adoc#plans[System Upgrade Controller component documentation] for a more detailed description of the `day` and `hour` variables.
+Make sure to set the correct upgrade image using the `image` variable: `docker.io/projectsyn/suc-ubuntu-focal` and `docker.io/projectsyn/suc-ubuntu-bionic` are available.
+
+
+In order to upgrade K3s nodes using the System Upgrade Controller, they have to be labeled with `plan.upgrade.cattle.io/focal`

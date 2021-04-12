@@ -1,0 +1,19 @@
+---
+parameters:
+  system_upgrade_controller:
+    plans:
+      - name: k3s
+        concurrency: 1
+        version: v1.20.4+k3s1
+        channel: null
+        label_selectors:
+          - {key: k3s.io/hostname, operator: Exists}
+          - {key: node-role.kubernetes.io/master, operator: In, values: ["true"]}
+        tolerations:
+          - key: node-role.kubernetes.io/controlplane
+            operator: Exists
+          - key: node-role.kubernetes.io/etcd
+            operator: Exists
+        serviceAccountName: system-upgrade
+        cordon: true
+        image: docker.io/rancher/k3s-upgrade
