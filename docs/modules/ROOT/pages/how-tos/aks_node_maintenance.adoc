@@ -59,12 +59,6 @@ During the upgrade, check the status of the node images with the following `kube
 kubectl get nodes -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.metadata.labels.kubernetes\.azure\.com\/node-image-version}{"\n"}{end}'
 ----
 
-== Script for automated update
+== AKS Maintenance Image
 
-The following script automates the procedure described above.
-It only calls the upgrade command when there is a mismatch between the latest and the current node image version.
-
-[source,bash]
-----
-include::example$aks_maintenance.sh[]
-----
+The procedure described aboved was put into a script that is included in the following container image: https://github.com/appuio/container-aks-maintenance
