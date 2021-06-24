@@ -25,9 +25,10 @@ Check latest node image version available for your node pool with the following 
 [source,shell]
 ----
 az aks nodepool get-upgrades \
-    --nodepool-name mynodepool \
+    [--subscription "Subscription ID/Name" \]
+    --resource-group myResourceGroup \
     --cluster-name myAKSCluster \
-    --resource-group myResourceGroup
+    --nodepool-name mynodepool
 ----
 
 Then compare this with your current node image version by running:
@@ -35,6 +36,7 @@ Then compare this with your current node image version by running:
 [source,shell]
 ----
 az aks nodepool show \
+    [--subscription "Subscription ID/Name" \]
     --resource-group myResourceGroup \
     --cluster-name myAKSCluster \
     --name mynodepool \
@@ -46,6 +48,7 @@ To upgrade the node image, use the following command:
 [source,shell]
 ----
 az aks nodepool upgrade \
+    [--subscription "Subscription ID/Name" \]
     --resource-group myResourceGroup \
     --cluster-name myAKSCluster \
     --name mynodepool \
