@@ -14,11 +14,18 @@ Also check https://github.com/Azure/AKS/releases[AKS Release Notes] for details 
 Change the parameter `cluster_version` in your `aks-terraform` repository to change the Kubernetes version.
 When applied, AKS starts with the upgrade process as described https://docs.microsoft.com/en-us/azure/aks/upgrade-cluster#upgrade-an-aks-cluster[here]
 
-The https://docs.microsoft.com/en-us/azure/aks/upgrade-cluster#set-auto-upgrade-channel[upgrade channel] for the Kubernetes Cluster is set to `patch`.
+If the https://docs.microsoft.com/en-us/azure/aks/upgrade-cluster#set-auto-upgrade-channel[upgrade channel] for the Kubernetes Cluster is set to `patch`, (in terraform using the `automatic_channel_upgrade` variable), the cluster will update automatically to the latest patch level kubernetes version.
 Therefore the variable `cluster_version` might not match the current state of your cluster.
 Verify the cluster version and upgrade `cluster_version` before applying.
 
 == Node Image Upgrade
+
+Login via the azure cli to the correct tenant first:
+
+[source,shell]
+----
+az login [--tenant XXXX]
+----
 
 Check latest node image version available for your node pool with the following command:
 
