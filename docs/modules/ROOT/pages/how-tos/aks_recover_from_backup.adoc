@@ -102,6 +102,13 @@ restic restore <ID> --target cluster-backup-object-restore-$(date +%F)
 
 == Extract and prepare files
 
+. Change the directory
++
+[source,console]
+----
+cd cluster-backup-object-restore-$(date +%F)
+----
+
 . List files in the backup.
    Take note of the path containing the required files.
 +
