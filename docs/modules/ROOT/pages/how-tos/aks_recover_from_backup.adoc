@@ -70,7 +70,7 @@ vault login -method=ldap username=<your username>
 +
 [source,bash]
 ----
-export RESTIC_REPOSITORY=azure:$(yq -r '. | select(.kind == "Schedule").spec.backend.s3.bucket' catalog/manifests/cluster-backup/05_schedule.yaml):/
+export RESTIC_REPOSITORY=azure:$(yq e '. | select(.kind == "Schedule").spec.backend.s3.bucket' catalog/manifests/cluster-backup/05_schedule.yaml):/
 
 PASSWORD_KEY="$(yq e '. | select(.kind == "Secret" and .metadata.name == "objects-backup-password").stringData.password' catalog/manifests/cluster-backup/05_schedule.yaml | cut -d: -f2)"
 export RESTIC_PASSWORD=$(vault kv get -format json "clusters/kv/${PASSWORD_KEY%/*}" | jq -r ".data.data.${PASSWORD_KEY##*/}")
