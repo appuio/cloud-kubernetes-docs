@@ -1,0 +1,141 @@
+= AKS Recover cluster objects from Azure Blob Storage backup
+
+== Prerequisites
+
+* Executables used in this guide:
+** `kubectl`
+** `yq`
+** `restic`
+* API access to the target cluster
+
+== General procedure
+
+1. Collect configuration for restic
+2. Identify and retrieve restic snapshot
+3. Extract files containing the desired objects and prepare them
+4. Apply objects to the cluster
+
+== Collect restic configuration
+
+Restic requires the environment variables `RESTIC_REPOSITORY`, `RESTIC_PASSWORD`, `AZURE_ACCOUNT_NAME` and `AZURE_ACCOUNT_KEY` to be set.
+They can be obtained from the target cluster itself.
+They can also be obtained from the cluster catalog and Vault.
+
+=== Obtaining restic configuration from cluster
+
+[source,console]
+----
+export RESTIC_REPOSITORY=$(kubectl -n syn-cluster-backup get schedule objects -o jsonpath='azure:{.spec.backend.s3.bucket}:/')
+export RESTIC_PASSWORD=$(kubectl -n syn-cluster-backup get secret objects-backup-password -o jsonpath='{.data.password}' | base64 --decode)
+export AZURE_ACCOUNT_NAME=$(kubectl get secret admin-credentials-minio-k8up -n syn-minio -o jsonpath='{.data.accesskey}' | base64 --decode)
+export AZURE_ACCOUNT_KEY=$(kubectl get secret admin-credentials-minio-k8up -n syn-minio -o jsonpath='{.data.secretkey}' | base64 --decode)
+----
+
+=== Obtaining restic configuration from catalog and vault
+
+1. Obtain the repository URL of the clusters catalog and export it to `REPO_URL`
++
+Get the URL from https://control.vshn.net/syn/lieutenantclusters.
+Alternatively, get it from the Lieutenant API or the Kubernetes API Lieutenant is running on.
++
+.Use the Lieutenant API
+[source,console]
+----
+REPO_URL=$(curl -sH "${LIEUTENANT_AUTH}" "https://${LIEUTENANT_URL}/clusters/${CLUSTER_ID}" | jq -r .gitRepo.url)
+----
++
+.Use the Kubernetes API
+[source,console]
+----
+REPO_URL=$(kubectl -n ${LIEUTENANT_NS} get cluster -o jsonpath='{.spec.gitRepoURL}' ${CLUSTER_ID})
+----
+
+2. Download and extract the cluster catalog
++
+[source,console]
+----
+mkdir catalog
+git archive --remote ${REPO_URL} master | tar -xC catalog
+----
+
+3. Login to vault
++
+[source,console]
+----
+export VAULT_ADDR=https://vault-prod.syn.vshn.net
+vault login -method=ldap username=<your username>
+----
+
+4. Export restic configuration
++
+[source,console]
+----
+export RESTIC_REPOSITORY=azure:$(yq -r '. | select(.kind == "Schedule").spec.backend.s3.bucket' catalog/manifests/cluster-backup/05_schedule.yaml):/
+
+PASSWORD_KEY="$(yq -r '. | select(.kind == "Secret" and .metadata.name == "objects-backup-password").stringData.password' catalog/manifests/cluster-backup/05_schedule.yaml | cut -d: -f2)"
+export RESTIC_PASSWORD=$(vault kv get -format json "clusters/kv/${PASSWORD_KEY%/*}" | jq -r ".data.data.${PASSWORD_KEY##*/}")
+
+ID_KEY="$(yq -r '. | select(.kind == "Secret" and .metadata.name == "object-backup-s3-credentials").stringData.username' catalog/manifests/cluster-backup/05_schedule.yaml | cut -d: -f2)"
+export AZURE_ACCOUNT_NAME=$(vault kv get -format json "clusters/kv/${ID_KEY%/*}" | jq -r ".data.data.${ID_KEY##*/}")
+
+SECRET_KEY="$(yq -r '. | select(.kind == "Secret" and .metadata.name == "object-backup-s3-credentials").stringData.password' catalog/manifests/cluster-backup/05_schedule.yaml | cut -d: -f2)"
+export AZURE_ACCOUNT_KEY=$(vault kv get -format json "clusters/kv/${SECRET_KEY%/*}" | jq -r ".data.data.${SECRET_KEY##*/}")
+----
+
+== Identify and retrieve snapshot
+
+1. List the available snapshots.
+   Identify the one you do want to restore.
+   Take note of its `ID`.
++
+[source,console]
+----
+restic snapshots
+----
+
+2. Retrieve the backup archive
++
+[source,console]
+----
+restic restore <ID> --target cluster-backup-object-restore-$(date +%F)
+----
+
+== Extract and prepare files
+
+1. List files in the backup.
+   Take note of the path containing the required files.
++
+[source,console]
+----
+tar tvf syn-cluster-backup-object-dumper.tar.gz
+----
+
+2. Extract required files.
+   If all files should be extracted, `path/inside/archive` can be omitted.
+   Files will be put in the directory `restore` within the current working directory.
++
+[source,console]
+----
+mkdir restore
+tar -C restore -xf syn-cluster-backup-object-dumper.tar.gz [path/inside/archive]
+----
+
+3. Prepare files
++
+Depending on the restore requirements, the extracted files need to be altered before they can be applied to the cluster.
+
+== Apply objects
+
+Apply the extracted and prepared objects to the target cluster.
+
+.Apply single file
+[source,console]
+----
+kubectl --as cluster-admin apply -f <path/to/file>
+----
+
+.Apply all files within a directory
+[source,console]
+----
+kubectl --as cluster-admin apply -Rf <path/to/dir>
+----
