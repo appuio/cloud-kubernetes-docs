@@ -102,7 +102,7 @@ restic restore <ID> --target cluster-backup-object-restore-$(date +%F)
 
 == Extract and prepare files
 
-. Change the directory
+. Change to the restore directory
 +
 [source,console]
 ----
