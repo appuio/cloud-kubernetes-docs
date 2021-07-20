@@ -33,7 +33,7 @@ export AZURE_ACCOUNT_KEY=$(kubectl get secret admin-credentials-minio-k8up -n sy
 
 === Obtaining restic configuration from catalog and vault
 
-1. Obtain the repository URL of the clusters catalog and export it to `REPO_URL`
+1. Obtain the repository URL of the cluster's catalog and export it to `REPO_URL`
 +
 Get the URL from https://control.vshn.net/syn/lieutenantclusters.
 Alternatively, get it from the Lieutenant API or the Kubernetes API Lieutenant is running on.
