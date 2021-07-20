@@ -58,7 +58,7 @@ mkdir catalog
 git archive --remote ${REPO_URL} master | tar -xC catalog
 ----
 
-3. Login to vault
+3. Login to Vault
 +
 [source,console]
 ----
