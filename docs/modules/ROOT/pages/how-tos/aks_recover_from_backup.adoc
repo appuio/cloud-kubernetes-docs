@@ -72,13 +72,13 @@ vault login -method=ldap username=<your username>
 ----
 export RESTIC_REPOSITORY=azure:$(yq -r '. | select(.kind == "Schedule").spec.backend.s3.bucket' catalog/manifests/cluster-backup/05_schedule.yaml):/
 
-PASSWORD_KEY="$(yq -r '. | select(.kind == "Secret" and .metadata.name == "objects-backup-password").stringData.password' catalog/manifests/cluster-backup/05_schedule.yaml | cut -d: -f2)"
+PASSWORD_KEY="$(yq e '. | select(.kind == "Secret" and .metadata.name == "objects-backup-password").stringData.password' catalog/manifests/cluster-backup/05_schedule.yaml | cut -d: -f2)"
 export RESTIC_PASSWORD=$(vault kv get -format json "clusters/kv/${PASSWORD_KEY%/*}" | jq -r ".data.data.${PASSWORD_KEY##*/}")
 
-ID_KEY="$(yq -r '. | select(.kind == "Secret" and .metadata.name == "object-backup-s3-credentials").stringData.username' catalog/manifests/cluster-backup/05_schedule.yaml | cut -d: -f2)"
+ID_KEY="$(yq e '. | select(.kind == "Secret" and .metadata.name == "object-backup-s3-credentials").stringData.username' catalog/manifests/cluster-backup/05_schedule.yaml | cut -d: -f2)"
 export AZURE_ACCOUNT_NAME=$(vault kv get -format json "clusters/kv/${ID_KEY%/*}" | jq -r ".data.data.${ID_KEY##*/}")
 
-SECRET_KEY="$(yq -r '. | select(.kind == "Secret" and .metadata.name == "object-backup-s3-credentials").stringData.password' catalog/manifests/cluster-backup/05_schedule.yaml | cut -d: -f2)"
+SECRET_KEY="$(yq e '. | select(.kind == "Secret" and .metadata.name == "object-backup-s3-credentials").stringData.password' catalog/manifests/cluster-backup/05_schedule.yaml | cut -d: -f2)"
 export AZURE_ACCOUNT_KEY=$(vault kv get -format json "clusters/kv/${SECRET_KEY%/*}" | jq -r ".data.data.${SECRET_KEY##*/}")
 ----
 
