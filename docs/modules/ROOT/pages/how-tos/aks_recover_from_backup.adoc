@@ -10,10 +10,10 @@
 
 == General procedure
 
-1. Collect configuration for restic
-2. Identify and retrieve restic snapshot
-3. Extract files containing the desired objects and prepare them
-4. Apply objects to the cluster
+. Collect configuration for restic
+. Identify and retrieve restic snapshot
+. Extract files containing the desired objects and prepare them
+. Apply objects to the cluster
 
 == Collect restic configuration
 
@@ -33,7 +33,7 @@ export AZURE_ACCOUNT_KEY=$(kubectl get secret admin-credentials-minio-k8up -n sy
 
 === Obtaining restic configuration from catalog and vault
 
-1. Obtain the repository URL of the cluster's catalog and export it to `REPO_URL`
+. Obtain the repository URL of the cluster's catalog and export it to `REPO_URL`
 +
 Get the URL from https://control.vshn.net/syn/lieutenantclusters.
 Alternatively, get it from the Lieutenant API or the Kubernetes API Lieutenant is running on.
@@ -50,7 +50,7 @@ REPO_URL=$(curl -sH "${LIEUTENANT_AUTH}" "https://${LIEUTENANT_URL}/clusters/${C
 REPO_URL=$(kubectl -n ${LIEUTENANT_NS} get cluster -o jsonpath='{.spec.gitRepoURL}' ${CLUSTER_ID})
 ----
 
-2. Download and extract the cluster catalog
+. Download and extract the cluster catalog
 +
 [source,console]
 ----
@@ -58,7 +58,7 @@ mkdir catalog
 git archive --remote ${REPO_URL} master | tar -xC catalog
 ----
 
-3. Login to Vault
+. Login to Vault
 +
 [source,console]
 ----
@@ -66,7 +66,7 @@ export VAULT_ADDR=https://vault-prod.syn.vshn.net
 vault login -method=ldap username=<your username>
 ----
 
-4. Export restic configuration
+. Export restic configuration
 +
 [source,console]
 ----
@@ -102,7 +102,7 @@ restic restore <ID> --target cluster-backup-object-restore-$(date +%F)
 
 == Extract and prepare files
 
-1. List files in the backup.
+. List files in the backup.
    Take note of the path containing the required files.
 +
 [source,console]
@@ -110,7 +110,7 @@ restic restore <ID> --target cluster-backup-object-restore-$(date +%F)
 tar tvf syn-cluster-backup-object-dumper.tar.gz
 ----
 
-2. Extract required files.
+. Extract required files.
    If all files should be extracted, `path/inside/archive` can be omitted.
    Files will be put in the directory `restore` within the current working directory.
 +
@@ -120,7 +120,7 @@ mkdir restore
 tar -C restore -xf syn-cluster-backup-object-dumper.tar.gz [path/inside/archive]
 ----
 
-3. Prepare files
+. Prepare files
 +
 Depending on the restore requirements, the extracted files need to be altered before they can be applied to the cluster.
 
