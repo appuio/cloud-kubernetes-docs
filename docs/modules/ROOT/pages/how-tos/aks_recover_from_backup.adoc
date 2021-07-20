@@ -1,4 +1,4 @@
-= AKS Recover cluster objects from Azure Blob Storage backup
+= Recover cluster objects from Azure Blob Storage backup
 
 == Prerequisites
 
