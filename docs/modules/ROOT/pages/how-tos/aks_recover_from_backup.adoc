@@ -39,20 +39,20 @@ Get the URL from https://control.vshn.net/syn/lieutenantclusters.
 Alternatively, get it from the Lieutenant API or the Kubernetes API Lieutenant is running on.
 +
 .Use the Lieutenant API
-[source,console]
+[source,bash]
 ----
 REPO_URL=$(curl -sH "${LIEUTENANT_AUTH}" "https://${LIEUTENANT_URL}/clusters/${CLUSTER_ID}" | jq -r .gitRepo.url)
 ----
 +
 .Use the Kubernetes API
-[source,console]
+[source,bash]
 ----
 REPO_URL=$(kubectl -n ${LIEUTENANT_NS} get cluster -o jsonpath='{.spec.gitRepoURL}' ${CLUSTER_ID})
 ----
 
 . Download and extract the cluster catalog
 +
-[source,console]
+[source,bash]
 ----
 mkdir catalog
 git archive --remote ${REPO_URL} master | tar -xC catalog
@@ -60,7 +60,7 @@ git archive --remote ${REPO_URL} master | tar -xC catalog
 
 . Login to Vault
 +
-[source,console]
+[source,bash]
 ----
 export VAULT_ADDR=https://vault-prod.syn.vshn.net
 vault login -method=ldap username=<your username>
@@ -68,7 +68,7 @@ vault login -method=ldap username=<your username>
 
 . Export restic configuration
 +
-[source,console]
+[source,bash]
 ----
 export RESTIC_REPOSITORY=azure:$(yq -r '. | select(.kind == "Schedule").spec.backend.s3.bucket' catalog/manifests/cluster-backup/05_schedule.yaml):/
 
@@ -95,7 +95,7 @@ restic snapshots
 
 . Retrieve the backup archive
 +
-[source,console]
+[source,bash]
 ----
 restic restore <ID> --target cluster-backup-object-restore-$(date +%F)
 ----
@@ -105,7 +105,7 @@ restic restore <ID> --target cluster-backup-object-restore-$(date +%F)
 . List files in the backup.
    Take note of the path containing the required files.
 +
-[source,console]
+[source,bash]
 ----
 tar tvf syn-cluster-backup-object-dumper.tar.gz
 ----
@@ -114,7 +114,7 @@ tar tvf syn-cluster-backup-object-dumper.tar.gz
    If all files should be extracted, `path/inside/archive` can be omitted.
    Files will be put in the directory `restore` within the current working directory.
 +
-[source,console]
+[source,bash]
 ----
 mkdir restore
 tar -C restore -xf syn-cluster-backup-object-dumper.tar.gz [path/inside/archive]
@@ -129,13 +129,13 @@ Depending on the restore requirements, the extracted files need to be altered be
 Apply the extracted and prepared objects to the target cluster.
 
 .Apply single file
-[source,console]
+[source,bash]
 ----
 kubectl --as cluster-admin apply -f <path/to/file>
 ----
 
 .Apply all files within a directory
-[source,console]
+[source,bash]
 ----
 kubectl --as cluster-admin apply -Rf <path/to/dir>
 ----
