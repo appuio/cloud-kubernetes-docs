@@ -4,7 +4,7 @@
 
 * Executables used in this guide:
 ** `kubectl`
-** https://github.com/kislyuk/yq[yq: Command-line YAML/XML/TOML processor] installable via `pip3 install yq`
+** https://mikefarah.gitbook.io/yq[yq YAML processor] (Version 4 or higher)
 ** `restic`
 * API access to the target cluster
 
