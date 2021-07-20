@@ -84,16 +84,16 @@ export AZURE_ACCOUNT_KEY=$(vault kv get -format json "clusters/kv/${SECRET_KEY%/
 
 == Identify and retrieve snapshot
 
-1. List the available snapshots.
+. List the available snapshots.
    Identify the one you do want to restore.
    Take note of its `ID`.
 +
-[source,console]
+[source,bash]
 ----
 restic snapshots
 ----
 
-2. Retrieve the backup archive
+. Retrieve the backup archive
 +
 [source,console]
 ----
