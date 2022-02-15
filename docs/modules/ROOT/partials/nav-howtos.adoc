@@ -1,5 +1,3 @@
-* AWS EKS
-** xref:rancher:ROOT:how-tos/eks_node_maintenance.adoc[Node Maintenance]
 * Azure AKS
 ** xref:rancher:ROOT:how-tos/aks_node_maintenance.adoc[Node and Control-Plane Maintenance]
 ** xref:rancher:ROOT:how-tos/aks_recover_from_backup.adoc[Recover cluster objects from backup]
