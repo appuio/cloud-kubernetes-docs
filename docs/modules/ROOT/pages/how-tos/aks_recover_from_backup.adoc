@@ -1,19 +1,6 @@
 = Recover cluster objects from Azure Blob Storage backup
 
-== Prerequisites
-
-* Executables used in this guide:
-** `kubectl`
-** https://mikefarah.gitbook.io/yq[yq YAML processor] (Version 4 or higher)
-** `restic`
-* API access to the target cluster
-
-== General procedure
-
-. Collect configuration for restic
-. Identify and retrieve restic snapshot
-. Extract files containing the desired objects and prepare them
-. Apply objects to the cluster
+include::partial$objects-restore-preparation.adoc[]
 
 == Collect restic configuration
 
@@ -82,67 +69,4 @@ SECRET_KEY="$(yq e '. | select(.kind == "Secret" and .metadata.name == "object-b
 export AZURE_ACCOUNT_KEY=$(vault kv get -format json "clusters/kv/${SECRET_KEY%/*}" | jq -r ".data.data.${SECRET_KEY##*/}")
 ----
 
-== Identify and retrieve snapshot
-
-. List the available snapshots.
-   Identify the one you do want to restore.
-   Take note of its `ID`.
-+
-[source,bash]
-----
-restic snapshots
-----
-
-. Retrieve the backup archive
-+
-[source,bash]
-----
-restic restore <ID> --target cluster-backup-object-restore-$(date +%F)
-----
-
-== Extract and prepare files
-
-. Change to the restore directory
-+
-[source,console]
-----
-cd cluster-backup-object-restore-$(date +%F)
-----
-
-. List files in the backup.
-   Take note of the path containing the required files.
-+
-[source,bash]
-----
-tar tvf syn-cluster-backup-object-dumper.tar.gz
-----
-
-. Extract required files.
-   If all files should be extracted, `path/inside/archive` can be omitted.
-   Files will be put in the directory `restore` within the current working directory.
-+
-[source,bash]
-----
-mkdir restore
-tar -C restore -xf syn-cluster-backup-object-dumper.tar.gz [path/inside/archive]
-----
-
-. Prepare files
-+
-Depending on the restore requirements, the extracted files need to be altered before they can be applied to the cluster.
-
-== Apply objects
-
-Apply the extracted and prepared objects to the target cluster.
-
-.Apply single file
-[source,bash]
-----
-kubectl --as cluster-admin apply -f <path/to/file>
-----
-
-.Apply all files within a directory
-[source,bash]
-----
-kubectl --as cluster-admin apply -Rf <path/to/dir>
-----
+include::partial$objects-restore.adoc[]

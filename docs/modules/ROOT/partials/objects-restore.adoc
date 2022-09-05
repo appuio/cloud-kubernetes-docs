@@ -1,0 +1,64 @@
+== Identify and retrieve snapshot
+
+. List the available snapshots.
+   Identify the one you do want to restore.
+   Take note of its `ID`.
++
+[source,bash]
+----
+restic snapshots
+----
+
+. Retrieve the backup archive
++
+[source,bash]
+----
+restic restore <ID> --target cluster-backup-object-restore-$(date +%F)
+----
+
+== Extract and prepare files
+
+. Change to the restore directory
++
+[source,console]
+----
+cd cluster-backup-object-restore-$(date +%F)
+----
+
+. List files in the backup.
+   Take note of the path containing the required files.
++
+[source,bash]
+----
+tar tvf syn-cluster-backup-object-dumper.tar.gz
+----
+
+. Extract required files.
+   If all files should be extracted, `path/inside/archive` can be omitted.
+   Files will be put in the directory `restore` within the current working directory.
++
+[source,bash]
+----
+mkdir restore
+tar -C restore -xf syn-cluster-backup-object-dumper.tar.gz [path/inside/archive]
+----
+
+. Prepare files
++
+Depending on the restore requirements, the extracted files need to be altered before they can be applied to the cluster.
+
+== Apply objects
+
+Apply the extracted and prepared objects to the target cluster.
+
+.Apply single file
+[source,bash]
+----
+kubectl --as cluster-admin apply -f <path/to/file>
+----
+
+.Apply all files within a directory
+[source,bash]
+----
+kubectl --as cluster-admin apply -Rf <path/to/dir>
+----

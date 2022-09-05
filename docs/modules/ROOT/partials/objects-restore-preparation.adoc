@@ -1,0 +1,14 @@
+== Prerequisites
+
+* Executables used in this guide:
+** `kubectl`
+** https://mikefarah.gitbook.io/yq[yq YAML processor] (Version 4 or higher)
+** `restic`
+* API access to the target cluster
+
+== General procedure
+
+. Collect configuration for restic
+. Identify and retrieve restic snapshot
+. Extract files containing the desired objects and prepare them
+. Apply objects to the cluster
