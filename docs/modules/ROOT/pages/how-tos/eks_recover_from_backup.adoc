@@ -4,6 +4,8 @@ include::partial$objects-restore-preparation.adoc[]
 
 == Collect restic configuration
 
+WARNING: For certain clusters, public access to the S3 bucket is blocked. For such clusters, all the following steps need to be done from within the AWS account (e.g. jumphost) or the cluster itself.
+
 Restic requires the environment variables `RESTIC_REPOSITORY`, `RESTIC_PASSWORD`, `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` to be set.
 They can be obtained from the target cluster itself.
 They can also be obtained from the cluster catalog and Vault.
