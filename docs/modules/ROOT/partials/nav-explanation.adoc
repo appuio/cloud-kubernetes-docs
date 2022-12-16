@@ -1,1 +1,1 @@
-* xref:rancher:ROOT:explanations/kubernetes_resource_management.adoc[Kubernetes Resource Management]
+* xref:cloud-kubernetes:ROOT:explanations/kubernetes_resource_management.adoc[Kubernetes Resource Management]

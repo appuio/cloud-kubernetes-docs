@@ -8,8 +8,8 @@ else
 	engine_opts ?= --rm --tty --user "$$(id -u)"
 endif
 
-preview_cmd ?= $(engine_cmd) run --rm --publish 35729:35729 --publish 2020:2020 --volume "${PWD}":/preview/antora vshn/antora-preview:2.3.4 --antora=docs --style=vshn
-vale_cmd ?= $(engine_cmd) run $(engine_opts) --volume "$${PWD}"/docs/modules:/pages:Z docker.io/vshn/vale:2.6.1 --minAlertLevel=error --config=/pages/ROOT/pages/.vale.ini /pages
+preview_cmd ?= $(engine_cmd) run --rm --publish 35729:35729 --publish 2020:2020 --volume "${PWD}":/preview/antora vshn/antora-preview:3.1.1.1 --antora=docs --style=vshn
+vale_cmd ?= $(engine_cmd) run $(engine_opts) --volume "$${PWD}"/docs/modules:/pages:Z docker.io/vshn/vale:2.10.5.1 --minAlertLevel=error --config=/pages/ROOT/pages/.vale.ini /pages
 
 UNAME := $(shell uname)
 ifeq ($(UNAME), Linux)

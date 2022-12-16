@@ -1,5 +1,5 @@
-name: rancher
-title: APPUiO Managed Rancher
+name: cloud-kubernetes
+title: APPUiO Managed Cloud Kubernetes
 version: master # --> versionless
 start_page: ROOT:index.adoc
 nav:

@@ -1,1 +1,1 @@
-* xref:rancher:ROOT:references/glossary.adoc[Glossary]
+* xref:cloud-kubernetes:ROOT:references/glossary.adoc[Glossary]

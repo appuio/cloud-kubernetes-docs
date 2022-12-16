@@ -1,6 +1,6 @@
-= APPUiO Managed Rancher Documentation
+= APPUiO Managed Cloud Kubernetes Documentation
 
-This repository contains all the content of the APPUiO Managed Rancher documentation hosted at https://kb.vshn.ch/rancher/.
+This repository contains all the content of the APPUiO Managed Cloud Kubernetes documentation hosted at https://kb.vshn.ch/cloud-kubernetes/.
 
 The content is written in https://asciidoctor.org/docs/what-is-asciidoc/[AsciiDoc] and rendered using https://docs.antora.org/[Antora].
 

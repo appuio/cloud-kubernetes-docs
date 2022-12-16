@@ -1,9 +1,9 @@
 * Azure AKS
-** xref:rancher:ROOT:how-tos/aks_node_maintenance.adoc[Node and Control-Plane Maintenance]
-** xref:rancher:ROOT:how-tos/aks_recover_from_backup.adoc[Recover cluster objects from backup]
+** xref:cloud-kubernetes:ROOT:how-tos/aks_node_maintenance.adoc[Node and Control-Plane Maintenance]
+** xref:cloud-kubernetes:ROOT:how-tos/aks_recover_from_backup.adoc[Recover cluster objects from backup]
 * Amazon EKS
-** xref:rancher:ROOT:how-tos/eks_recover_from_backup.adoc[Recover cluster objects from backup]
+** xref:cloud-kubernetes:ROOT:how-tos/eks_recover_from_backup.adoc[Recover cluster objects from backup]
 * Google GKE
-** xref:rancher:ROOT:how-tos/gke_node_maintenance.adoc[Node Maintenance]
+** xref:cloud-kubernetes:ROOT:how-tos/gke_node_maintenance.adoc[Node Maintenance]
 * K3S
-** xref:rancher:ROOT:how-tos/k3s_maintenance.adoc[Maintenance]
+** xref:cloud-kubernetes:ROOT:how-tos/k3s_maintenance.adoc[Maintenance]
