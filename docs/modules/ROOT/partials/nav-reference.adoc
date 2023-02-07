@@ -1,1 +1,2 @@
 * xref:cloud-kubernetes:ROOT:references/glossary.adoc[Glossary]
+* xref:cloud-kubernetes:ROOT:references/service-maturity.adoc[Service Maturity]
