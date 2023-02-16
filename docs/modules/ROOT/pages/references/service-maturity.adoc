@@ -57,12 +57,12 @@ I can monitor the status of my cloud Kubernetes environment during the maintenan
 As a user of the service I can perform the following actions:
 
 Upgrade::
-I can upgrade my cloud Kubernetes clusters minor version.
+I can schedule an automated upgrade of my Cloud Kubernetes cluster to the next minor version.
 
 As an engineer of the service I can perform the following actions:
 
 Upgrade::
-I can upgrade my cloud Kubernetes clusters minor version.
+I can trigger an automated upgrade of my Cloud Kubernetes cluster to the next minor version.
 
 
 == Iteration: Backup and Restore
