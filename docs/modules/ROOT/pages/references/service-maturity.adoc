@@ -17,49 +17,44 @@ TODO! We currently maintain the service maturity assessment for each service on 
 
 == Initial Release: Cluster Provisioning
 
-As a user of the service I can perform the following actions:
+As an End User of the service I can perform the following actions:
 
 Provisioning::
-I can provision a production-ready cloud Kubernetes environment on a major cloud service provider, such as Amazon EKS, Azure AKS, Google GKE, Exsoscale SKS (on request) and Swisscom ESC (on request).
-
+I can provision a Cloud Kubernetes environment on our supported Cloud Service Provider.
 Scalability::
-I can easily scale my cluster as my needs change, without any downtime or disruption to my services.
+I can easily scale my cluster horizontally and vertically, as my needs change, without any downtime or disruption to my services.
 
 Customization::
-I can customize my cluster with the features and components I need to run my workloads.
+I can customize my cluster with a pre-defined set of features and components.
 
 Security::
 The service is built with security in mind and includes features such as encrypted communication, role-based access control (RBAC), and more to help me protect my data and workloads.
 
 Technical support::
-I can receive technical support from Kubernetes experts, who can help me resolve any issues or questions I may have, according to my SLA.
+I can receive technical support from Kubernetes experts, who can help me resolve any issues or questions I may have, according to my chosen xref:https://products.docs.vshn.ch/products/support_plans.html[Support Plan].
 
-
-== Iteration: Cluster Maintainence
-
-As a user of the service I can perform the following actions:
-
+== Iteration: Cluster Maintenance
 Scheduling::
-I can schedule maintenance windows for my cloud Kubernetes environment, during which updates, patches, or other changes can be applied automatically.
+I can schedule maintenance windows for my Cloud Kubernetes environment, during which updates, patches, or other changes can be applied automatically.
 
 Notifications::
 I can receive notifications in advance of any scheduled maintenance, allowing me to plan accordingly and to minimize any disruption to my applications.
 
-Automated Updates::
-The service will automatically apply updates and patches to my cloud Kubernetes environment, ensuring that it is always running the latest and most secure version of the software.
+Automated Upadtes::
+The service will automatically apply updates and patches to my Cloud Kubernetes environment, ensuring that it is always running the latest and most secure version of the software.
 
 Monitoring::
-I can monitor the status of my cloud Kubernetes environment during the maintenance window, to ensure that the maintenance is operating as expected.
+I can monitor the status of my Cloud Kubernetes environment during the maintenance window, to ensure that the maintenance is operating as expected.
 
 
 == Iteration: Cluster Upgrade
 
-As a user of the service I can perform the following actions:
+As an End User of the service I can perform the following actions:
 
 Upgrade::
 I can schedule an automated upgrade of my Cloud Kubernetes cluster to the next minor version.
 
-As an engineer of the service I can perform the following actions:
+As a Technical VSHNeer of the service I can perform the following actions:
 
 Upgrade::
 I can trigger an automated upgrade of my Cloud Kubernetes cluster to the next minor version.
@@ -68,10 +63,10 @@ I can trigger an automated upgrade of my Cloud Kubernetes cluster to the next mi
 == Iteration: Backup and Restore
 
 
-As a user of the service I can perform the following actions:
+As an End User of the service I can perform the following actions:
 
-Data backup::
-I can create backups of my cloud Kubernetes environment, including the configuration, state, and data of my applications.
+Cluster configuration backup::
+I can rely on automated backups of my Cloud Kubernetes cluster configuration and state.
 
 Scheduling::
 I can schedule backups to run automatically, at a time and frequency that suits my needs.
@@ -80,7 +75,7 @@ Data retention::
 I can configure data retention policies to ensure that backups are kept for the desired length of time.
 
 Restore::
-In the event of a failure, I can quickly and easily restore my cloud Kubernetes environment to a previous state, including all configuration, state, and data.
+In the event of a failure, I can quickly and easily restore my Cloud Kubernetes environment to a previous state, including all configuration, state, and data.
 
 Testing::
 I can test restores in a development environment before performing a full restore, to ensure that my data and applications are fully recoverable.
@@ -88,26 +83,26 @@ I can test restores in a development environment before performing a full restor
 
 == Iteration: Monitoring and Alerting
 
-As a user of the service I can perform the following actions:
+As an End User of the service I can perform the following actions:
 
-* I can have a monitoring service that will help me keep track of the health and performance of my cloud Kubernetes environment.
+* I can have a monitoring service that will help me keep track of the health and performance of my Cloud Kubernetes environment.
 * I can enable alerting on pre-defined SLIs to VSHN so that VSHN can resolve incidents with priority.
-* I can see SLO reports so that I can get an overview of how well my cloud Kubernetes environment performs.
+* I can see SLO reports so that I can get an overview of how well my Cloud Kubernetes environment performs.
 
-As an engineer of the service I can perform the following actions:
+As a Technical VSHNeer of the service I can perform the following actions:
 
 * Access operations runbooks so that I can resolve upcoming alerts
-* Access a monitoring dashboard to get an overview of the cloud Kubernetes environment and health
+* Access a monitoring dashboard to get an overview of the Cloud Kubernetes environment and health
 
 == Iteration: Metrics
 
-As a user of the service I can perform the following actions:
+As an End User of the service I can perform the following actions:
 
 Collection::
-The service will automatically collect and aggregate metrics from my cloud Kubernetes environment and applications, providing a unified view of all metrics.
+The service will automatically collect and aggregate metrics from my Cloud Kubernetes environment and applications, providing a unified view of all metrics.
 
 Visualization::
-Metrics can be visualized in real-time, with interactive charts and graphs, providing insights into the behavior and performance of my cloud Kubernetes environment and the applications.
+Metrics can be visualized in real-time, with interactive charts and graphs, providing insights into the behavior and performance of my Cloud Kubernetes environment and the applications.
 
 Alarming::
 I can set up alarms to alert me when specific conditions are met, such as when an application experiences an error.
@@ -118,15 +113,15 @@ I can create custom dashboards to view metrics that are most important to me, an
 
 == Iteration: Billing / Service
 
-As a user of the service I can perform the following actions:
+As an End User of the service I can perform the following actions:
 
 SLA::
-I can request a change for the SLA of my cloud Kubernetes environment
+I can request a change for the SLA of my Cloud Kubernetes environment
 
 Costs::
-I can view and access my running costs of the cloud Kubernetes environment
+I can view and access my running costs of the Cloud Kubernetes environment
 
-As an engineer of the service I can perform the following actions:
+As a Technical VSHNeer of the service I can perform the following actions:
 
 SLA::
 When a request for changing the SLA of a Kubernetes environment is approved, I can change the SLA.
@@ -134,41 +129,31 @@ When a request for changing the SLA of a Kubernetes environment is approved, I c
 SLA::
 I can view the SLA of a Kubernetes environment per customer and per cluster
 
+Automated Billing::
+The service instances are automatically billed according to the defined price model.
 
 == Iteration: Logs
 
-As a user of the service I can perform the following actions:
+As an End User of the service I can perform the following actions:
 
 Cluster Logs::
-I can access the logs of the Kubernetes control plane via a user-friendly interface
+I can rely that logs from my cluster are available and i can change the log retention to my preferred choice
 
-Application Logs::
-I can access the logs of my applications via a user-friendly interface
-
-Log retention::
-I can configure the retention of the logs in the cloud provider's logging stack
-
-As an engineer of the service I can perform the following actions:
+As a Technical VSHNeer I can perform the following actions:
 
 Cluster Logs::
 I can access the logs of the Kubernetes control plane via a user-friendly interface
 
 
-== Iteration: Ingress Controller
+== Iteration: Service Exposure
 
-As a user of the service I can perform the following actions:
+As an End User of the service I can perform the following actions:
 
-Route traffic::
-I can define rules to route incoming traffic to specific services based on the URL path, host, or other criteria.
+Ingress Controller::
+I have a modern Ingress controller available to expose my applications using the `Ingress` object.
 
 Load balancing::
-I can configure the Ingress Controller to load balance incoming traffic across multiple replicas of my services to improve reliability and performance.
-
-SSL/TLS termination::
-I can configure the Ingress Controller to terminate SSL/TLS connections and handle encryption/decryption of incoming traffic, making it easier to secure my services.
-
-Custom configuration::
-I can customize the behavior of the Ingress Controller by providing custom configuration files, such as custom error pages or redirect rules.
+I can expose my Kubernetes Services, using the type `LoadBalancer` in order to access it from outside the Cluster.
 
 Monitoring and logging::
 I can monitor and log incoming traffic through the Ingress Controller, helping me to track traffic patterns and identify issues.
@@ -176,7 +161,7 @@ I can monitor and log incoming traffic through the Ingress Controller, helping m
 Monitoring::
 I can monitor the expiration of my certificates
 
-As an engineer of the service I can perform the following actions:
+As a Technical VSHNeer of the service I can perform the following actions:
 
 Monitoring and logging::
 I can monitor and log incoming traffic through the Ingress Controller, helping me to track potential problems of the Ingress Controller
@@ -185,29 +170,16 @@ Custom configuration::
 I can customize the behavior of the Ingress Controller by providing custom configuration files, such as global defaults for certain timeouts
 
 
-== Iteration: Cert Manager
+== Iteration: Automated Certificate Handling
 
-As a user of the service I can perform the following actions:
+As an End User of the service I can perform the following actions:
 
-Certificate issuance::
-I can request and obtain SSL/TLS certificates from a variety of certificate authorities (CAs), such as Let's Encrypt, using cert-manager.
+I can consume certificates which are renewed automatically.
 
-Certificate renewal::
-I can configure cert-manager to automatically renew my certificates before they expire, ensuring the ongoing security and reliability of my services.
-
-Issuance tracking::
-I can track the status of certificate issuance and renewal through cert-manager's user-friendly interface, helping me to stay informed about the security of my services.
-
-Custom configuration::
-I can customize the behavior of cert-manager by providing custom configuration files, such as custom CAs or certificate issuance policies.
-
-Monitoring::
-I can monitor the expiration of my certificates which are issued through Cert-Manager
-
-
-As an engineer of the service I can perform the following actions:
+As a Technical VSHNeer of the service I can perform the following actions:
 
 Integration with Ingress Controller::
+I can ensure that the SSL/TLS certificates are automatically updated and applied as needed
 I can integrate cert-manager with the Ingress Controller to ensure that the SSL/TLS certificates are automatically updated and applied as needed.
 
 Monitoring::
@@ -216,12 +188,12 @@ I can monitor the health of the Cert-Manager and check for potential issues that
 
 == Iteration: Persistent Storage
 
-As a user of the service I can perform the following actions:
+As an End User of the service I can perform the following actions:
 
 Storage::
 I can request RWX (Read-Write-Many) or RWO (Read-Write-Once) storage from the storage classes which are pre-configured on the cluster
 
-As an engineer of the service I can perform the following actions:
+As a Technical VSHNeer of the service I can perform the following actions:
 
 Storage class::
 I can create and customize the storage classes which are pre-configured on the cluster
@@ -229,43 +201,24 @@ I can create and customize the storage classes which are pre-configured on the c
 
 == Iteration: Login (Authentication)
 
-As a user of the service I can perform the following actions:
+As an End User of the service I can perform the following actions:
 
 Cluster login::
 I can log in to my cluster through a user-friendly interface 
 
-As an engineer of the service I can perform the following actions:
+As a Technical VSHNeer of the service I can perform the following actions:
 
 Cluster login::
 I can log in to my cluster through a user-friendly interface 
 
-
-== Iteration: Cluster Role-Based Access Control (RBAC)
-
-As an engineer of the service I can perform the following actions:
-
-Role definition::
-I can define roles that specify the permissions a user or group of users should have within their cluster, including the ability to create, update, and delete resources.
-
-Role binding::
-I can bind roles to users or groups of users, effectively granting them the specified permissions.
-
-Role management::
-I can manage my roles and role bindings using Kubernetes APIs, allowing me to dynamically control access to their cluster and its resources.
-
-Cluster-level RBAC::
-I can enforce Cluster RBAC at the cluster level, ensuring that all users and groups have the appropriate permissions and access to their cluster and its resources.
-
-Namespace-level RBAC::
-I can enforce RBAC at the namespace level, allowing me to define different access policies for different parts of their cluster.
 
 
 == Iteration: Container Network Interface (CNI)
 
-As an engineer of the service I can perform the following actions:
+As a Technical VSHNeer of the service I can perform the following actions:
 
 Network plugin selection::
-I can choose from a variety of VSHN supported CNI plugins
+I can choose from a pre-defined list of VSHN supported CNI plugins
 
 Network customization::
 I can customize the network configuration to meet the specific needs of the user's workloads and applications, such as specifying network segmentation, IP address ranges, and other network-level attributes.
@@ -279,7 +232,7 @@ I can use CNI plugins to optimize network performance for the user's workloads a
 
 == Iteration: LoadBalancer
 
-As an engineer of the service I can perform the following actions:
+As a Technical VSHNeer of the service I can perform the following actions:
 
 Load balancing setup::
 I can set up load balancing for the applications and services, using the Ingress-Controller. This allows me to define how incoming traffic to the applications should be routed and balanced, ensuring that the users have a seamless and reliable experience.
