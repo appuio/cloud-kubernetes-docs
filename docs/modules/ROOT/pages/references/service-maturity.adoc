@@ -21,6 +21,7 @@ As an End User of the service I can perform the following actions:
 
 Provisioning::
 I can provision a Cloud Kubernetes environment on our supported Cloud Service Provider.
+
 Scalability::
 I can easily scale my cluster horizontally and vertically, as my needs change, without any downtime or disruption to my services.
 
@@ -31,16 +32,17 @@ Security::
 The service is built with security in mind and includes features such as encrypted communication, role-based access control (RBAC), and more to help me protect my data and workloads.
 
 Technical support::
-I can receive technical support from Kubernetes experts, who can help me resolve any issues or questions I may have, according to my chosen xref:https://products.docs.vshn.ch/products/support_plans.html[Support Plan].
+I can receive technical support from Kubernetes experts, who can help me resolve any issues or questions I may have, according to my chosen https://products.docs.vshn.ch/products/support_plans.html[Support Plan].
 
 == Iteration: Cluster Maintenance
+
 Scheduling::
 I can schedule maintenance windows for my Cloud Kubernetes environment, during which updates, patches, or other changes can be applied automatically.
 
 Notifications::
 I can receive notifications in advance of any scheduled maintenance, allowing me to plan accordingly and to minimize any disruption to my applications.
 
-Automated Upadtes::
+Automated Updates::
 The service will automatically apply updates and patches to my Cloud Kubernetes environment, ensuring that it is always running the latest and most secure version of the software.
 
 Monitoring::
