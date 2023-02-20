@@ -11,239 +11,135 @@ Important is that every step is independent of each other. A service that implem
 That in turn also means we must allow some leeway for each service in respect to the requirements, should a service not allow for a feature or makes it overly complex.
 A service is allowed to deviate from a requirement when it makes sense and can be documented and reasoned about accordingly.
 
-TODO! To understand the personas referenced in this document, see xref:reference/glossary.adoc#_personas[Glossary - Personas].
+To understand the personas referenced in this document, see xref:references/glossary.adoc#_personas[Glossary - Personas].
 
 TODO! We currently maintain the service maturity assessment for each service on our product documentation site under https://products.docs.vshn.ch/products/appuio/managed/services_index.html[VSHN Application Catalog -> Services^].
 
 == Initial Release: Cluster Provisioning
 
-As an End User of the service I can perform the following actions:
+As an *End-User* I can:
 
-Provisioning::
-I can provision a Cloud Kubernetes environment on our supported Cloud Service Provider.
+* provision a Cloud Kubernetes environment on our supported Cloud Service Providers, fully self-service.
+* connect to the Cloud Kubernetes API for using it.
+* customize my cluster with a pre-defined set of features and components.
+** scale my cluster horizontally and vertically, as my needs change.
+** choose the https://products.docs.vshn.ch/products/service_levels.html[service level^] of the instance.
+* delete the Cloud Kubernetes environment again.
 
-Scalability::
-I can easily scale my cluster horizontally and vertically, as my needs change, without any downtime or disruption to my services.
+As an *Technical VSHNeer* I can:
 
-Customization::
-I can customize my cluster with a pre-defined set of features and components.
+* see and configure the https://products.docs.vshn.ch/products/service_levels.html[service level^] of the instance.
+* automatically bill the service to the end-user according to the specified price model.
 
-Security::
-The service is built with security in mind and includes features such as encrypted communication, role-based access control (RBAC), and more to help me protect my data and workloads.
+_Quality requirements_:
 
-Technical support::
-I can receive technical support from Kubernetes experts, who can help me resolve any issues or questions I may have, according to my chosen https://products.docs.vshn.ch/products/support_plans.html[Support Plan].
+As an *End-User* I can:
+
+* receive technical support from Kubernetes experts, who can help me resolve any issues or questions I may have, according to my chosen https://products.docs.vshn.ch/products/support_plans.html[Support Plan^].
+* be assured that the service is built with security in mind and includes features such as encrypted communication, role-based access control (RBAC), and more to help me protect my data and workloads.
 
 == Iteration: Cluster Maintenance
 
-Scheduling::
-I can schedule maintenance windows for my Cloud Kubernetes environment, during which updates, patches, or other changes can be applied automatically.
+As an *End-User* I can:
 
-Notifications::
-I can receive notifications in advance of any scheduled maintenance, allowing me to plan accordingly and to minimize any disruption to my applications.
+* schedule maintenance windows for my Cloud Kubernetes environment, during which updates, patches, or other changes can be applied automatically.
+* receive notifications in advance of any scheduled maintenance, allowing me to plan accordingly and to minimize any disruption to my applications.
 
-Automated Updates::
-The service will automatically apply updates and patches to my Cloud Kubernetes environment, ensuring that it is always running the latest and most secure version of the software.
+As an *Technical VSHNeer* I can:
 
-Monitoring::
-I can monitor the status of my Cloud Kubernetes environment during the maintenance window, to ensure that the maintenance is operating as expected.
+* monitor the status of the Cloud Kubernetes environment during the maintenance window, to ensure that the maintenance is operating as expected.
 
+_Quality requirements_:
 
-== Iteration: Cluster Upgrade
+* The service will automatically apply updates and patches to the Cloud Kubernetes environment, ensuring that it is always running the latest and most secure version of the software.
 
-As an End User of the service I can perform the following actions:
+== Iteration: Cluster Version Upgrade
 
-Upgrade::
-I can schedule an automated upgrade of my Cloud Kubernetes cluster to the next minor version.
+As an *End-User* I can:
 
-As a Technical VSHNeer of the service I can perform the following actions:
+* schedule an automated upgrade of my Cloud Kubernetes environment to the next minor version.
 
-Upgrade::
-I can trigger an automated upgrade of my Cloud Kubernetes cluster to the next minor version.
+As an *Technical VSHNeer* I can:
 
+* trigger an automated upgrade of the Cloud Kubernetes environment to the next minor version.
 
-== Iteration: Backup and Restore
+== Iteration: Cluster Backup and Restore
 
+As an *End-User* I can:
 
-As an End User of the service I can perform the following actions:
+* rely on automated backups of my Cloud Kubernetes environment configuration and cluster state.
+* schedule backups cluster state backups to run automatically, at a time and frequency that suits my needs.
+* configure data retention policies to ensure that backups are kept for the desired length of time.
+* quickly and easily restore my Cloud Kubernetes environment to a previous state, including all cluster configuration.
+* test restores in a test environment before performing a full restore, to ensure that the backup is fully restorable.
 
-Cluster configuration backup::
-I can rely on automated backups of my Cloud Kubernetes cluster configuration and state.
+== Iteration: Cluster-Level Metrics and Alerting
 
-Scheduling::
-I can schedule backups to run automatically, at a time and frequency that suits my needs.
+As an *End-User* I can:
 
-Data retention::
-I can configure data retention policies to ensure that backups are kept for the desired length of time.
+* access a monitoring dashboard to get an overview of the Cloud Kubernetes environment and health.
 
-Restore::
-In the event of a failure, I can quickly and easily restore my Cloud Kubernetes environment to a previous state, including all configuration, state, and data.
+As an *Technical VSHNeer* I can:
 
-Testing::
-I can test restores in a development environment before performing a full restore, to ensure that my data and applications are fully recoverable.
+* have a monitoring service that will help me keep track of the health and performance of the Cloud Kubernetes environment.
+* enable alerting on pre-defined SLIs to VSHN so that VSHN can resolve incidents with priority.
+* see SLO reports so that I can get an overview of how well my Cloud Kubernetes environment performs.
+* access operations runbooks so that I can resolve upcoming alerts.
+* access a monitoring dashboard to get an overview of the Cloud Kubernetes environment and health.
 
+== Iteration: End-User Metrics and Alerting
 
-== Iteration: Monitoring and Alerting
+As an *End-User* I can:
 
-As an End User of the service I can perform the following actions:
-
-* I can have a monitoring service that will help me keep track of the health and performance of my Cloud Kubernetes environment.
-* I can enable alerting on pre-defined SLIs to VSHN so that VSHN can resolve incidents with priority.
-* I can see SLO reports so that I can get an overview of how well my Cloud Kubernetes environment performs.
-
-As a Technical VSHNeer of the service I can perform the following actions:
-
-* Access operations runbooks so that I can resolve upcoming alerts
-* Access a monitoring dashboard to get an overview of the Cloud Kubernetes environment and health
-
-== Iteration: Metrics
-
-As an End User of the service I can perform the following actions:
-
-Collection::
-The service will automatically collect and aggregate metrics from my Cloud Kubernetes environment and applications, providing a unified view of all metrics.
-
-Visualization::
-Metrics can be visualized in real-time, with interactive charts and graphs, providing insights into the behavior and performance of my Cloud Kubernetes environment and the applications.
-
-Alarming::
-I can set up alarms to alert me when specific conditions are met, such as when an application experiences an error.
-
-Custom dashboards::
-I can create custom dashboards to view metrics that are most important to me, and to quickly identify areas of concern.
-
-
-== Iteration: Billing / Service
-
-As an End User of the service I can perform the following actions:
-
-SLA::
-I can request a change for the SLA of my Cloud Kubernetes environment
-
-Costs::
-I can view and access my running costs of the Cloud Kubernetes environment
-
-As a Technical VSHNeer of the service I can perform the following actions:
-
-SLA::
-When a request for changing the SLA of a Kubernetes environment is approved, I can change the SLA.
-
-SLA::
-I can view the SLA of a Kubernetes environment per customer and per cluster
-
-Automated Billing::
-The service instances are automatically billed according to the defined price model.
+* enable a service to automatically collect and aggregate metrics from my Cloud Kubernetes environment and applications, providing a unified view of all metrics.
+* have metrics visualized in real-time, with interactive charts and graphs, providing insights into the behavior and performance of my Cloud Kubernetes environment and the applications.
+* configure alarms to alert me when specific conditions are met, such as when an application experiences an error.
+* create custom dashboards to view metrics that are most important to me, and to quickly identify areas of concern.
 
 == Iteration: Logs
 
-As an End User of the service I can perform the following actions:
+As an *End-User* I can:
 
-Cluster Logs::
-I can rely that logs from my cluster are available and i can change the log retention to my preferred choice
+* enable collection of historic logs of my applications running on the cluster.
+* access historic logs of my application running on the cluster.
+* configure retention time of historic logs.
 
-As a Technical VSHNeer I can perform the following actions:
+As an *Technical VSHNeer* I can:
 
-Cluster Logs::
-I can access the logs of the Kubernetes control plane via a user-friendly interface
-
+* access the logs of the Kubernetes control plane via a user-friendly interface.
+* configure retention time of historic logs.
 
 == Iteration: Service Exposure
 
-As an End User of the service I can perform the following actions:
+As an *End-User* I can:
 
-Ingress Controller::
-I have a modern Ingress controller available to expose my applications using the `Ingress` object.
+* expose services to the Internet using the `Ingress` Kubernetes objects.
+* expose services using the Kubernetes service type `LoadBalancer` in order to access it from outside the cluster (for example from the Internet).
 
-Load balancing::
-I can expose my Kubernetes Services, using the type `LoadBalancer` in order to access it from outside the Cluster.
+== Iteration: TLS Certificate Handling
 
-Monitoring and logging::
-I can monitor and log incoming traffic through the Ingress Controller, helping me to track traffic patterns and identify issues.
+As an *End-User* I can:
 
-Monitoring::
-I can monitor the expiration of my certificates
-
-As a Technical VSHNeer of the service I can perform the following actions:
-
-Monitoring and logging::
-I can monitor and log incoming traffic through the Ingress Controller, helping me to track potential problems of the Ingress Controller
-
-Custom configuration::
-I can customize the behavior of the Ingress Controller by providing custom configuration files, such as global defaults for certain timeouts
-
-
-== Iteration: Automated Certificate Handling
-
-As an End User of the service I can perform the following actions:
-
-I can consume certificates which are renewed automatically.
-
-As a Technical VSHNeer of the service I can perform the following actions:
-
-Integration with Ingress Controller::
-I can ensure that the SSL/TLS certificates are automatically updated and applied as needed
-I can integrate cert-manager with the Ingress Controller to ensure that the SSL/TLS certificates are automatically updated and applied as needed.
-
-Monitoring::
-I can monitor the health of the Cert-Manager and check for potential issues that might occur during issuing new or renewing certificates
-
+* order and consume TLS certificates which are renewed automatically.
+* use `Ingress` Kubernetes objects with fully automated certificate handling.
 
 == Iteration: Persistent Storage
 
-As an End User of the service I can perform the following actions:
+As an *End-User* I can:
 
-Storage::
-I can request RWX (Read-Write-Many) or RWO (Read-Write-Once) storage from the storage classes which are pre-configured on the cluster
+* request and consume RWX (Read-Write-Many) or RWO (Read-Write-Once) storage types.
+* order storage without having to specify a storage class.
 
-As a Technical VSHNeer of the service I can perform the following actions:
+== Iteration: Authentication
 
-Storage class::
-I can create and customize the storage classes which are pre-configured on the cluster
+As an *End-User* and *Technical VSHNeer* I can:
 
+* log in to my cluster through a user-friendly interface
 
-== Iteration: Login (Authentication)
+== Iteration: Networking
 
-As an End User of the service I can perform the following actions:
+As a *Technical VSHNeer* I can:
 
-Cluster login::
-I can log in to my cluster through a user-friendly interface 
-
-As a Technical VSHNeer of the service I can perform the following actions:
-
-Cluster login::
-I can log in to my cluster through a user-friendly interface 
-
-
-
-== Iteration: Container Network Interface (CNI)
-
-As a Technical VSHNeer of the service I can perform the following actions:
-
-Network plugin selection::
-I can choose from a pre-defined list of VSHN supported CNI plugins
-
-Network customization::
-I can customize the network configuration to meet the specific needs of the user's workloads and applications, such as specifying network segmentation, IP address ranges, and other network-level attributes.
-
-Network security::
-I can use CNI plugins to enforce network security policies, such as firewalls, network segmentation, and network access controls, helping me to ensure the security of the user's applications and data.
-
-Network performance::
-I can use CNI plugins to optimize network performance for the user's workloads and applications
-
-
-== Iteration: LoadBalancer
-
-As a Technical VSHNeer of the service I can perform the following actions:
-
-Load balancing setup::
-I can set up load balancing for the applications and services, using the Ingress-Controller. This allows me to define how incoming traffic to the applications should be routed and balanced, ensuring that the users have a seamless and reliable experience.
-
-Load balancing customization::
-I can customize my load balancing configuration to meet the specific needs of the applications and services, such as specifying routing rules, setting up SSL/TLS encryption, and configuring health checks.
-
-Load balancing performance::
-I can optimize the performance of my load balancing by using advanced load balancing algorithms and techniques, such as IP Hash, Round Robin, Least Connections, and others.
-
-Load balancing monitoring::
-I can monitor the performance of my load balancing using metrics and logs, helping me quickly identify and resolve any issues that may impact the applications performance.
+* choose from a pre-defined list of CNI plugins.
+* customize the network configuration to meet the specific needs of the user's workloads and applications. For example specifying network segmentation, IP address ranges, and other network-level attributes.
+* enforce network security policies, such as firewalls, network segmentation, and network access controls.
