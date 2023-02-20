@@ -26,17 +26,10 @@ As an *End-User* I can:
 ** choose the https://products.docs.vshn.ch/products/service_levels.html[service level^] of the instance.
 * delete the Cloud Kubernetes environment again.
 
-As an *Technical VSHNeer* I can:
+As a *Technical VSHNeer* I can:
 
 * see and configure the https://products.docs.vshn.ch/products/service_levels.html[service level^] of the instance.
 * automatically bill the service to the end-user according to the specified price model.
-
-_Quality requirements_:
-
-As an *End-User* I can:
-
-* receive technical support from Kubernetes experts, who can help me resolve any issues or questions I may have, according to my chosen https://products.docs.vshn.ch/products/support_plans.html[Support Plan^].
-* be assured that the service is built with security in mind and includes features such as encrypted communication, role-based access control (RBAC), and more to help me protect my data and workloads.
 
 == Iteration: Cluster Maintenance
 
@@ -45,13 +38,9 @@ As an *End-User* I can:
 * schedule maintenance windows for my Cloud Kubernetes environment, during which updates, patches, or other changes can be applied automatically.
 * receive notifications in advance of any scheduled maintenance, allowing me to plan accordingly and to minimize any disruption to my applications.
 
-As an *Technical VSHNeer* I can:
+As a *Technical VSHNeer* I can:
 
 * monitor the status of the Cloud Kubernetes environment during the maintenance window, to ensure that the maintenance is operating as expected.
-
-_Quality requirements_:
-
-* The service will automatically apply updates and patches to the Cloud Kubernetes environment, ensuring that it is always running the latest and most secure version of the software.
 
 == Iteration: Cluster Version Upgrade
 
@@ -59,7 +48,7 @@ As an *End-User* I can:
 
 * schedule an automated upgrade of my Cloud Kubernetes environment to the next minor version.
 
-As an *Technical VSHNeer* I can:
+As a *Technical VSHNeer* I can:
 
 * trigger an automated upgrade of the Cloud Kubernetes environment to the next minor version.
 
@@ -77,15 +66,15 @@ As an *End-User* I can:
 
 As an *End-User* I can:
 
-* access a monitoring dashboard to get an overview of the Cloud Kubernetes environment and health.
+* access a metrics dashboard to get an overview of the Cloud Kubernetes environment and health.
 
-As an *Technical VSHNeer* I can:
+As a *Technical VSHNeer* I can:
 
-* have a monitoring service that will help me keep track of the health and performance of the Cloud Kubernetes environment.
+* have a metrics service that will help me keep track of the health and performance of the Cloud Kubernetes environment.
 * enable alerting on pre-defined SLIs to VSHN so that VSHN can resolve incidents with priority.
 * see SLO reports so that I can get an overview of how well my Cloud Kubernetes environment performs.
 * access operations runbooks so that I can resolve upcoming alerts.
-* access a monitoring dashboard to get an overview of the Cloud Kubernetes environment and health.
+* access a metrics dashboard to get an overview of the Cloud Kubernetes environment and health.
 
 == Iteration: End-User Metrics and Alerting
 
@@ -104,7 +93,7 @@ As an *End-User* I can:
 * access historic logs of my application running on the cluster.
 * configure retention time of historic logs.
 
-As an *Technical VSHNeer* I can:
+As a *Technical VSHNeer* I can:
 
 * access the logs of the Kubernetes control plane via a user-friendly interface.
 * configure retention time of historic logs.

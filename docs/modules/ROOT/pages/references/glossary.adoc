@@ -10,7 +10,7 @@ https://cloud.google.com/kubernetes-engine[GKE]:: Google Kubernetes Engine
 == Personas
 
 End-User::
-A human that interacts with the service (uses it)-
+A human that interacts with the service (uses it).
 
 Technical VSHNeer::
 A VSHNeer doing system administration, solution architecture and other technically focused jobs.
