@@ -85,6 +85,14 @@ As an *End-User* I can:
 * configure alarms to alert me when specific conditions are met, such as when an application experiences an error.
 * create custom dashboards to view metrics that are most important to me, and to quickly identify areas of concern.
 
+== Iteration: Cluster Autoscaling
+
+As an *End-User* I can:
+
+* enable autoscaling of the cluster so that new worker nodes get added when needed and removed again when not needed anymore.
+* define a lower and upper bound of the amount of worker nodes.
+* specify what kind of worker nodes are part of the autoscaling.
+
 == Iteration: Logs
 
 As an *End-User* I can:
