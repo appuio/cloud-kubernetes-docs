@@ -9,7 +9,7 @@ This page gives an idea on the iterative steps and a way to assess the Managed K
 Except the "Cluster Provisioning" iteration, all steps in-between can be in any order, as it fits best.
 When all iterations are implemented, it's not meant that the service doesn't receive new functionality or doesn't get maintained anymore, we're talking about the default scope outlined on this page.
 
-Important is that every step is independent of each other. A Managed Kubernetes service that implements `Cluster Maintenance` doesn't necessarily already implement `Logs`.
+Important is that every step is independent of each other. A Managed Kubernetes service that implements _Cluster Maintenance_ doesn't necessarily already implement _Logs_.
 That in turn also means we must allow some leeway for each Managed Kubernetes service in respect to the requirements, should a service not allow for a feature or makes it overly complex.
 A Managed Kubernetes service is allowed to deviate from a requirement when it makes sense and can be documented and reasoned about accordingly.
 
