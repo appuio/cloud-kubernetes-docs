@@ -1,19 +1,19 @@
 = Service Maturity
 
-Implementing and maintaining a service is iterative work.
-The idea is to release early and release often, without having the urge to have all features available right from the beginning.
+TIP: The intended audience of this document is the Product Owner of the service. It specifies a high-level set of functionality which helps in navigating through the implementation phase. Breaking these iterations down into technical details is part of the engineering process.
 
-This page gives an idea on the iterative steps and a way to assess the service maturity.
-Except the "Provisioning" iteration and the stable release, all steps in-between can be in any order, as it fits best.
-With "feature complete" it's not meant that the service doesn't receive new functionality or doesn't get maintained anymore, we're talking about the default scope outlined on this page.
+Implementing and maintaining a Managed Kubernetes service is iterative work.
+The idea is to release early and release often, without having the urge to have all iterations available right from the beginning.
 
-Important is that every step is independent of each other. A service that implements `Backup and Restore` doesn't necessarily already implement `Logs`.
-That in turn also means we must allow some leeway for each service in respect to the requirements, should a service not allow for a feature or makes it overly complex.
-A service is allowed to deviate from a requirement when it makes sense and can be documented and reasoned about accordingly.
+This page gives an idea on the iterative steps and a way to assess the Managed Kubernetes service maturity.
+Except the "Cluster Provisioning" iteration, all steps in-between can be in any order, as it fits best.
+When all iterations are implemented, it's not meant that the service doesn't receive new functionality or doesn't get maintained anymore, we're talking about the default scope outlined on this page.
+
+Important is that every step is independent of each other. A Managed Kubernetes service that implements `Cluster Maintenance` doesn't necessarily already implement `Logs`.
+That in turn also means we must allow some leeway for each Managed Kubernetes service in respect to the requirements, should a service not allow for a feature or makes it overly complex.
+A Managed Kubernetes service is allowed to deviate from a requirement when it makes sense and can be documented and reasoned about accordingly.
 
 To understand the personas referenced in this document, see xref:references/glossary.adoc#_personas[Glossary - Personas].
-
-TODO! We currently maintain the service maturity assessment for each service on our product documentation site under https://products.docs.vshn.ch/products/appuio/managed/services_index.html[VSHN Application Catalog -> Services^].
 
 == Initial Release: Cluster Provisioning
 
