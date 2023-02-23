@@ -1,7 +1,72 @@
 = Glossary
 
-https://azure.microsoft.com/de-de/services/kubernetes-service/[AKS]:: Azure Kubernetes Service (AKS)
+////
+You can link these terms using xrefs and their IDs, for example:
+  xref:reference/glossary.adoc#service-instance[Service Instance]
+////
+
+== General
+
+[[service]]Service::
+A service that can be ordered.
+It is automatically provisioned, can be consumed by a service consumer and generally adheres to our quality requirements.
+
+[[service-consumer]]Service Consumer::
+An application that connects to a service instance as a client.
+
+[[service-order]]Service Order::
+The act of deploying a Kubernetes resource that triggers the provisioning of a new service instance.
+
+[[service-instance]]Service Instance::
+A single isolated occurrence of a service.
+
+[[cloud-instance]]Cloud Instance:::
+An instance of a cloud service offering by a cloud service provider.
+
+[[converged-service-instance]]Converged Service Instance:::
+An instance of a converged service blueprint.
+Either in the same namespace as the service order was made or in another namespace.
+
+== Service Location
+
+Services can be provisioned on various places:
+
+[[converged-cluster]]Converged Cluster::
+Service instance runs on the same cluster as the service consumer.
+
+[[service-cluster]]Service Cluster::
+Service runs on one or more dedicated clusters, reserved for services.
+
+[[cloud-service]]Cloud Service::
+A type of service architecture offered by a cloud service provider such as MS, AWS or GCP.
+
+[[converged-service]]Converged Service::
+A type of service developed to run on a converged cluster.
+
+[[converged-service-architecture]]Converged Service Architectures::
+Architecture refers to the deployment strategy of a service instance in relation to high availability.
+
+[[standalone]]Standalone:::
+A single node instance without any high availability.
+
+[[replicated]]Replicated:::
+The service offers data replication to one or more other instances.
+
+[[clustered]]Clustered:::
+A fully clustered version of the service, usually offering active / active replication with fully automated cluster handling.
+
+== Personas
+
+[[End-user]]End User::
+A human that interacts with {APPUiO Managed Cloud Kubernetes}.
+
+[[Technical-VSHNeer]]Technical VSHNeer::
+A human that engineers and maintains a service (code).
+
+== How-to guides
+
+https://azure.microsoft.com/de-de/services/kubernetes-service/[Azure AKS]:: Azure Kubernetes Service (AKS)
 https://github.com/projectsyn/boatswain[Boatswain]:: Tool developed by VSHN to perform node maintenance of an EKS cluster (by replacing them) 
-https://aws.amazon.com/eks/[EKS]:: Amazon Elastic Kubernetes Service
-https://cloud.google.com/kubernetes-engine[GKE]:: Google Kubernetes Engine
-https://k3s.io/:: K3S Lightweight Kubernetes
+https://aws.amazon.com/eks/[Amazon EKS]:: Amazon Elastic Kubernetes Service
+https://cloud.google.com/kubernetes-engine[Google GKE]:: Google Kubernetes Engine
+https://k3s.io[K3S]:: K3S Lightweight Kubernetes
