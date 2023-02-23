@@ -58,10 +58,10 @@ A fully clustered version of the service, usually offering active / active repli
 == Personas
 
 [[End-user]]End User::
-A human that interacts with {APPUiO Managed Cloud Kubernetes}.
+A human that interacts with the service (uses it).
 
 [[Technical-VSHNeer]]Technical VSHNeer::
-A human that engineers and maintains a service (code).
+A VSHNeer doing system administration, solution architecture and other technically focused jobs.
 
 == How-to guides
 
