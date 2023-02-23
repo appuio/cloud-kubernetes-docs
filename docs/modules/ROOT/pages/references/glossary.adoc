@@ -3,7 +3,7 @@
 == General
 
 https://azure.microsoft.com/de-de/services/kubernetes-service/[AKS]:: Azure Kubernetes Service (AKS)
-https://github.com/projectsyn/boatswain[Boatswain]:: Tool developed by VSHN to perform node maintenance of an EKS cluster (by replacing them)
+https://github.com/projectsyn/boatswain[Boatswain]:: Tool developed by VSHN to perform node maintenance of an EKS cluster (by replacing them) 
 https://aws.amazon.com/eks/[EKS]:: Amazon Elastic Kubernetes Service
 https://cloud.google.com/kubernetes-engine[GKE]:: Google Kubernetes Engine
 
@@ -17,4 +17,3 @@ A VSHNeer doing system administration, solution architecture and other technical
 
 
 See also https://handbook.vshn.ch/documentation.html#_audience[our VSHN Handbook] for a description of audiences regarding documentation.
-
