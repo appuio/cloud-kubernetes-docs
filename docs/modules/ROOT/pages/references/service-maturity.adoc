@@ -60,7 +60,6 @@ As an *End-User* I can:
 * schedule backups cluster state backups to run automatically, at a time and frequency that suits my needs.
 * configure data retention policies to ensure that backups are kept for the desired length of time.
 * quickly and easily restore my Cloud Kubernetes environment to a previous state, including all cluster configuration.
-* test restores in a test environment before performing a full restore, to ensure that the backup is fully restorable.
 
 == Iteration: Cluster-Level Metrics and Alerting
 
@@ -76,7 +75,7 @@ As a *Technical VSHNeer* I can:
 * access operations runbooks so that I can resolve upcoming alerts.
 * access a metrics dashboard to get an overview of the Cloud Kubernetes environment and health.
 
-== Iteration: End-User Metrics and Alerting
+== Iteration: Application Metrics and Alerting
 
 As an *End-User* I can:
 
@@ -98,12 +97,12 @@ As an *End-User* I can:
 As an *End-User* I can:
 
 * enable collection of historic logs of my applications running on the cluster.
-* access historic logs of my application running on the cluster.
+* access historic logs of my applications running on the cluster via a graphical user interface.
 * configure retention time of historic logs.
 
 As a *Technical VSHNeer* I can:
 
-* access the logs of the Kubernetes control plane via a user-friendly interface.
+* access historic logs of the Kubernetes control plane via a graphical user interface.
 * configure retention time of historic logs.
 
 == Iteration: Service Exposure
