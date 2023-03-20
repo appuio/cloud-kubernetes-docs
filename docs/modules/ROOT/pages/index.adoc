@@ -1,8 +1,8 @@
-= APPUiO Managed Cloud Kubernetes
+= APPUiO Managed Kubernetes Services
 
 image::appuio-managed.svg[APPUiO,256,link=https://www.appuio.ch]
 
-Welcome to the https://www.appuio.ch[APPUiO] Managed Cloud Kubernetes (operated by https://www.vshn.ch[VSHN]) technical documentation site.
+Welcome to the https://www.appuio.ch[APPUiO] Managed Kubernetes Services (operated by https://www.vshn.ch[VSHN]) technical documentation site.
 
 Here you'll find all the technical documentation.
 Use the search field at the top of this page or navigate through topics with the tree on the left side.
