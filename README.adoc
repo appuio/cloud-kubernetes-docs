@@ -1,6 +1,6 @@
-= APPUiO Managed Cloud Kubernetes Documentation
+= APPUiO Managed Kubernetes Services Documentation
 
-This repository contains all the content of the APPUiO Managed Cloud Kubernetes documentation hosted at https://kb.vshn.ch/cloud-kubernetes/.
+This repository contains all the content of the APPUiO Managed Kubernetes Services documentation hosted at https://kb.vshn.ch/cloud-kubernetes/.
 
 The content is written in https://asciidoctor.org/docs/what-is-asciidoc/[AsciiDoc] and rendered using https://docs.antora.org/[Antora].
 

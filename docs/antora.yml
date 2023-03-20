@@ -1,6 +1,6 @@
 name: cloud-kubernetes
-title: APPUiO Managed Cloud Kubernetes
+title: APPUiO Managed Kubernetes Services
 version: master # --> versionless
 start_page: ROOT:index.adoc
 nav:
-- modules/ROOT/partials/nav.adoc
+  - modules/ROOT/partials/nav.adoc
