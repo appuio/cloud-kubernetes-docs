@@ -6,6 +6,9 @@
 ** `restic`
 * API access to the target cluster
 
+NOTE: The `yq` packages of Debian and Ubuntu are a different tool with an incompatible syntax.
+Use the binary from https://github.com/mikefarah/yq/releases[GitHub releases] or the `mikefarah/yq` container image instead.
+
 == General procedure
 
 . Collect configuration for restic

@@ -8,14 +8,17 @@ Restic requires the environment variables `RESTIC_REPOSITORY`, `RESTIC_PASSWORD`
 They can be obtained from the target cluster itself.
 They can also be obtained from the cluster catalog and Vault.
 
+NOTE: The `restic` packages of Debian and Ubuntu are built without Azure support and fail with `invalid backend`.
+Use the official binary from https://github.com/restic/restic/releases[GitHub releases] or the `restic/restic` container image instead.
+
 === Obtaining restic configuration from cluster
 
 [source,console]
 ----
-export RESTIC_REPOSITORY=$(kubectl -n syn-cluster-backup get schedule objects -o jsonpath='azure:{.spec.backend.s3.bucket}:/')
+export RESTIC_REPOSITORY=$(kubectl -n syn-cluster-backup get schedule objects -o jsonpath='azure:{.spec.backend.azure.container}:/')
 export RESTIC_PASSWORD=$(kubectl -n syn-cluster-backup get secret objects-backup-password -o jsonpath='{.data.password}' | base64 --decode)
-export AZURE_ACCOUNT_NAME=$(kubectl get secret admin-credentials-minio-k8up -n syn-minio -o jsonpath='{.data.accesskey}' | base64 --decode)
-export AZURE_ACCOUNT_KEY=$(kubectl get secret admin-credentials-minio-k8up -n syn-minio -o jsonpath='{.data.secretkey}' | base64 --decode)
+export AZURE_ACCOUNT_NAME=$(kubectl -n syn-cluster-backup get secret objects-backup-azure-credentials -o jsonpath='{.data.account_name}' | base64 --decode)
+export AZURE_ACCOUNT_KEY=$(kubectl -n syn-cluster-backup get secret objects-backup-azure-credentials -o jsonpath='{.data.account_key}' | base64 --decode)
 ----
 
 === Obtaining restic configuration from catalog and vault
@@ -57,15 +60,17 @@ vault login -method=ldap username=<your username>
 +
 [source,bash]
 ----
-export RESTIC_REPOSITORY=azure:$(yq e '. | select(.kind == "Schedule").spec.backend.s3.bucket' catalog/manifests/cluster-backup/05_schedule.yaml):/
+MANIFEST=catalog/manifests/cluster-backup/10_object.yaml
 
-PASSWORD_KEY="$(yq e '. | select(.kind == "Secret" and .metadata.name == "objects-backup-password").stringData.password' catalog/manifests/cluster-backup/05_schedule.yaml | cut -d: -f2)"
+export RESTIC_REPOSITORY=azure:$(yq e '. | select(.kind == "Schedule").spec.backend.azure.container' ${MANIFEST}):/
+
+PASSWORD_KEY="$(yq e '. | select(.kind == "Secret" and .metadata.name == "objects-backup-password").stringData.password' ${MANIFEST} | cut -d: -f2)"
 export RESTIC_PASSWORD=$(vault kv get -format json "clusters/kv/${PASSWORD_KEY%/*}" | jq -r ".data.data.${PASSWORD_KEY##*/}")
 
-ID_KEY="$(yq e '. | select(.kind == "Secret" and .metadata.name == "object-backup-s3-credentials").stringData.username' catalog/manifests/cluster-backup/05_schedule.yaml | cut -d: -f2)"
+ID_KEY="$(yq e '. | select(.kind == "Secret" and .metadata.name == "objects-backup-azure-credentials").stringData.account_name' ${MANIFEST} | cut -d: -f2)"
 export AZURE_ACCOUNT_NAME=$(vault kv get -format json "clusters/kv/${ID_KEY%/*}" | jq -r ".data.data.${ID_KEY##*/}")
 
-SECRET_KEY="$(yq e '. | select(.kind == "Secret" and .metadata.name == "object-backup-s3-credentials").stringData.password' catalog/manifests/cluster-backup/05_schedule.yaml | cut -d: -f2)"
+SECRET_KEY="$(yq e '. | select(.kind == "Secret" and .metadata.name == "objects-backup-azure-credentials").stringData.account_key' ${MANIFEST} | cut -d: -f2)"
 export AZURE_ACCOUNT_KEY=$(vault kv get -format json "clusters/kv/${SECRET_KEY%/*}" | jq -r ".data.data.${SECRET_KEY##*/}")
 ----
 

@@ -30,7 +30,7 @@ cd cluster-backup-object-restore-$(date +%F)
 +
 [source,bash]
 ----
-tar tvf syn-cluster-backup-object-dumper.tar.gz
+tar tvf syn-cluster-backup-object-dumper.tar
 ----
 
 . Extract required files.
@@ -40,7 +40,7 @@ tar tvf syn-cluster-backup-object-dumper.tar.gz
 [source,bash]
 ----
 mkdir restore
-tar -C restore -xf syn-cluster-backup-object-dumper.tar.gz [path/inside/archive]
+tar -C restore -xf syn-cluster-backup-object-dumper.tar [path/inside/archive]
 ----
 
 . Prepare files
@@ -61,4 +61,23 @@ kubectl --as cluster-admin apply -f <path/to/file>
 [source,bash]
 ----
 kubectl --as cluster-admin apply -Rf <path/to/dir>
+----
+
+== Clean up
+
+WARNING: The backup archive and the extracted files contain all objects of the cluster, including all secrets in plain text.
+
+. Remove the restore directory
++
+[source,bash]
+----
+cd ..
+rm -rf cluster-backup-object-restore-$(date +%F)
+----
+
+. Remove the restic configuration from the environment
++
+[source,bash]
+----
+unset RESTIC_REPOSITORY RESTIC_PASSWORD AZURE_ACCOUNT_NAME AZURE_ACCOUNT_KEY AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY
 ----
